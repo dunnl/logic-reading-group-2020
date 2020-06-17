@@ -1,0 +1,332 @@
+\documentclass[letter]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+%\usepackage{algpseudocode}
+\usepackage{mathtools}
+\usepackage{stmaryrd}
+\usepackage{fancyhdr}
+\usepackage{siunitx}
+\usepackage[bb=boondox]{mathalfa}
+\usepackage{tkz-berge}
+\usepackage{enumerate}
+\usepackage{stackengine}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{comment}
+\usepackage{bussproofs}
+% DEFINE DEVIDES
+\makeatletter
+\def\localbig#1#2{%
+	\sbox\z@{$\m@th#1
+		\sbox\tw@{$#1()$}%
+		\dimen@=\ht\tw@\advance\dimen@\dp\tw@
+		\nulldelimiterspace\z@\left#2\vcenter to1.2\dimen@{}\right.
+		$}\box\z@}
+
+\newcommand{\divides}{\mathrel{\mathpalette\dividesaux\relax}}
+\newcommand{\ndivides}{\mathrel{\mathpalette\ndividesaux\relax}}
+
+\newcommand{\dividesaux}[2]{\mbox{$\m@th#1\localbig{#1}|$}}
+\newcommand{\ndividesaux}[2]{%
+	\mkern.5mu
+	\ooalign{%
+		\hidewidth$\m@th#1\localbig{#1}|$\hidewidth\cr
+		$\m@th#1\nmid$\cr%
+	}%
+}
+\makeatother
+% DONE DIVIDES
+
+\newcommand{\abs}[1]{\left\lvert#1\right\rvert}
+
+%opening
+\title{Logic Reading Group\\Solutions to \textit{Logic and Structure}}
+\date{Summer 2020}
+
+\newcommand{\vsep}{\textpipe\ }
+
+
+\newcommand{\Span}{\text{span}}
+\newcommand{\diag}{\text{diag}}
+\newtheorem{problem}{Problem}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newenvironment{solution}
+{\begin{proof}[Solution]}
+	{\end{proof}}
+
+\newcommand*{\lsim}{\mathord{\sim}}
+
+\newcommand*{\braces}[1]{\left\{#1\right\}}
+
+\newcommand\overla[3][0pt]{\stackengine{0pt}{#3}{\kern#1#2}{O}{c}{F}{F}{L}}
+\newcommand\overlam[3][0pt]{\text{\stackengine{0pt}{$#3$}{\kern#1$#2$}{O}{c}{F}{F}{L}}}
+
+\def\shrinkage{2.1mu}
+\def\vecsign{\mathchar"017E}
+\def\dvecsign{\smash{\stackon[-1.95pt]{\mkern-\shrinkage\vecsign}{\rotatebox{180}{$\mkern-\shrinkage\vecsign$}}}}
+\def\dvec#1{\def\useanchorwidth{T}\stackon[-4.2pt]{#1}{\,\dvecsign}}
+\usepackage{stackengine}
+\stackMath
+\usepackage{graphicx}
+
+
+\DeclareMathOperator*{\bigdoublewedge}{\bigwedge\mkern-15mu\bigwedge}
+\DeclareMathOperator*{\bigdoublevee}{\bigvee\mkern-15mu\bigvee}
+
+
+\begin{document}
+
+\maketitle
+ 
+\newpage
+\begin{problem}[1.1.2]
+    Show that $(( \to \not \in \textrm{PROP}$.
+\end{problem}
+\begin{solution}
+\end{solution}
+
+\begin{problem}[1.1.9] Show that a proposition with $n$ connectives has at most $2n + 1$ formulas.
+\end{problem}
+\begin{solution}
+\end{solution}
+
+\begin{problem}[1.1.10] Show that for $\textrm{PROP}$ we have a unique decomposition theorem: for each non-atomic proposition $\sigma$ either there are two propositions $\phi$ and $\psi$ such that $\sigma = \phi \square \psi$ or there is a proposition $\phi$ such that $\sigma = \neg \phi$.
+\end{problem}
+\begin{solution}
+\end{solution}
+
+\begin{problem}[1.2.1] Check by the truth table method which of the following propositions are tautologies:
+    \begin{enumerate}[(a)]
+        \item $(\neg \phi \lor \psi) \iff (\psi \to \phi)$
+        \item $\phi \to ((\psi \to \sigma)
+                          \to
+                          ((\phi \to \psi)
+                            \to (\phi \to \sigma)
+                            ))$
+        \item $(\phi \to \neg \phi) \iff \neg \phi$
+        \item $\neg (\phi \to \neg \phi)$
+    \end{enumerate}
+\end{problem}
+\begin{solution}
+\end{solution}
+
+\begin{problem}[1.2.2] Show
+    \begin{enumerate}[(a)]
+        \item $\phi \models \phi$
+        \item $\phi \models \psi \textrm{ and } \psi \models \sigma \> \implies \> \phi \models \sigma$
+        \item $\models \phi \to \psi \> \iff \> \phi \models \psi$
+    \end{enumerate}
+\end{problem}
+\begin{solution}
+\end{solution}
+
+ 
+\newcommand{\den}[1]{\llbracket #1 \rrbracket_v}
+\begin{problem}[1.2.5]
+    Show
+ \begin{enumerate}[(a)]
+     \item $\den{\phi \land \psi} = \den{\phi} \cdot \den{\psi}$
+     \item $\den{\phi \lor \psi} = \den{\phi} + \den{\psi} - \den{\phi} \cdot \den\psi$
+     \item $\den{\phi \to \psi} = 1 - \den{\phi} + \den{\phi} \cdot \den{\psi}$
+     \item $\den{\phi \leftrightarrow \psi} = 1 - \big|
+     \den{\phi} - \den{\psi} \big|$
+ \end{enumerate}
+\end{problem}
+\begin{solution}
+    
+\end{solution}
+
+\begin{problem}[1.3.1] Show by `algebraic' means
+ \begin{enumerate}[(a)]
+     \item $\models (\phi \to \psi) \leftrightarrow (\neg \psi \to \neg \phi)$
+     \item $\models (\phi \to \psi) \land (\psi \to \sigma) \to (\phi \to \sigma)$
+     \item $\models (\phi \to (\psi \land \neg \psi) \to \neg \phi$
+     \item $\models (\phi \to \neg \psi) \to \neg \phi$
+     \item $\models \neg (\phi \land \neg \phi)$
+     \item $\models \phi \to (\psi \to \phi \land \psi)$
+     \item $\models ((\phi \to \psi) \to \phi) \to \phi$
+ \end{enumerate}
+\end{problem}
+\begin{solution}
+\end{solution}
+
+\begin{problem}[1.3.3] Show that $\{ \neg \}$ is not a functionally complete set of connectives. Same for $\{\to, \lor\}$ (hint: show that each formula $\phi$ with only $\to$ and $\lor$ there is a valuation v such that $\llbracket \phi \rrbracket_v = 1$)
+\end{problem}
+\begin{solution}
+\end{solution}
+
+\begin{problem}[1.3.4] Show that the Sheffer stroke, $\uparrow$, forms a functionally complete set. (hint: $\models \neg \phi \leftrightarrow \phi \uparrow \phi$).
+\end{problem}
+\begin{solution}
+\end{solution}
+
+
+\begin{problem}[1.3.10] Determine conjunctive and disjunctive normal forms for
+\begin{enumerate}[(a)]
+    \item $\neg (\phi \leftrightarrow \psi)$
+    \item $((\phi \to \psi) \to \psi) \to \psi$
+    \item $(\phi \to (\phi \land \neg \psi)) \land (\psi \to (\psi \land \neg \phi))$
+\end{enumerate}
+\end{problem}
+\begin{solution}
+\end{solution}
+
+\begin{problem}[1.3.11] Give a criterion for a conjunctive normal form to be a tautology.
+\end{problem}
+\begin{solution}
+\end{solution}
+
+\begin{problem}[1.4.1] Show that the following propositions are derivable (note: see at the bottom for guidance on formatting proof trees)
+\begin{enumerate}[(a)]
+    \item $\phi \to \phi$
+    \item $\bot \to \phi$
+    \item $\neg (\phi \land \neg \phi)$
+    \item $(\phi \to \psi) \leftrightarrow \neg (\phi \land \neg \psi)$
+    \item $(\phi \land \psi) \leftrightarrow (\phi \to \neg \psi)$
+    \item $\phi \to (\psi \to (\phi \land \psi))$
+\end{enumerate}
+\end{problem}
+\begin{solution}
+    Here is (c) for notational reference:
+    
+    \begin{prooftree}
+        \AxiomC{$[ \phi \land \neg \phi]^1$}
+        \RightLabel{$\land E (l)$}
+        \UnaryInfC{$\phi$}
+        \AxiomC{$[ \phi \land \neg \phi]^1$}
+        \RightLabel{$\land E (r)$}
+        \UnaryInfC{$\neg \phi$}
+        \RightLabel{$\to E$}
+        \BinaryInfC{$\bot$}
+        \RightLabel{$\to I$}
+        \UnaryInfC{$\neg (\phi \land \neg \phi)$}
+    \end{prooftree}
+
+\end{solution}
+
+\begin{problem}[1.4.3] Show
+    \begin{enumerate}[(a)]
+        \item $\phi \vdash \neg (\neg \phi \land \psi)$
+        \item $\neg (\phi \land \neg \psi), \phi \vdash \psi$
+        \item $\neg \phi \vdash (\phi \to \psi) \leftrightarrow \neg \phi$
+        \item $\vdash \phi \implies \vdash \psi \to \phi$
+        \item $\neg \phi \vdash \phi \to \psi$
+    \end{enumerate}
+\end{problem}
+\begin{solution}
+\end{solution}
+
+\begin{problem}[1.4.4] Show
+    \begin{enumerate}[(a)]
+        \item $[(\phi \to \psi) \to (\phi \to \sigma)] \to [ \phi \to \psi \to \sigma]$
+        \item $((\phi \to \psi) \to \phi) \to \phi$
+    \end{enumerate}
+\end{problem}
+\begin{solution}
+\end{solution}
+
+\begin{problem}[1.4.10] Give an inductive definition of the relation $\vdash$ (c.f. Lemma 1.4.3). Show this relation coincides with the derived relation of Definition 1.4.2. Conclude that if $\Gamma \vdash \phi$, then $\Gamma$ contains a finite $\Delta$ such that $\Delta \vdash \phi$.
+\end{problem}
+\begin{solution}
+\end{solution}
+
+
+\begin{problem}[1.5.1] Check which of the following sets are consistent
+    \begin{enumerate}[(a)]
+        \item $\{\neg p_1 \land p_2 \to p_0, p_1 \to (\neg p_1 \to p_2), p_0 \leftrightarrow \neg p_2\}$
+        \item $\{p_0 \to p_1. p_1 \to p_2, p2 \to p_3, p_3 \to \neg p_0\}$
+        \item $\{p_0 \to p_1, p_0 \land p_2 \to p_1 \land p_3, p_0 \land p_2 \land p_4 \to p_1 \land p_3 \land p_5 \}$
+    \end{enumerate}
+\end{problem}
+\begin{solution}
+\end{solution}
+
+\begin{problem}[1.5.2] Show that the following are equivalent:
+    \begin{enumerate}[(a)]
+        \item $\{\phi_1 \ldots \phi_n\}$ is consistent
+        \item $\not \vdash \neg (\phi_1 \land \ldots \land \phi_n)$
+        \item $\not \vdash \phi_1 \land \phi_2 \ldots \land \phi_{n-1}\to \neg \phi_n$
+    \end{enumerate}
+\end{problem}
+\begin{solution}
+\end{solution}
+
+\begin{problem}[1.5.3] $\phi$ is \textit{independent} from $\Gamma$ if
+    $\Gamma \not \vdash \phi$ and $\Gamma \not \vdash \neg \phi$. Show that $\p_1 \to p_2$ is independent from $\{p_1 \leftrightarrow p_0 \land \neg p_2, p_2 \to p_0\}$
+\end{problem}
+\begin{solution}
+\end{solution}
+
+\begin{problem}[1.5.6] Show that a consistent set $\Gamma$ is maximally consistent if either $\phi \in \Gamma$ or $\neg \phi \in \Gamma$ for all $\phi$.
+\end{problem}
+\begin{solution}
+\end{solution}
+
+
+\begin{problem}[1.5.10] Show $\textrm{Cons}(\Gamma) = \{ \sigma | \Gamma \vdash \sigma \}$ is maximally consistent if and only if $\Gamma$ is complete.
+\end{problem}
+\begin{solution}
+\end{solution}
+
+
+\section{Notation Reference}
+
+\begin{table}[H]
+    \begin{tabular}{ll}
+        \textbf{Notation} & \textbf{Usual meaning} \\
+        $\to$ $\leftarrow$ $\lor$ $\land$ $\leftrightarrow$ $\neg$ & Object-level connectives \\
+        $\uparrow$ & Scheffer stroke (nand)\\
+        $\top$, $\bot$ & Object-level true, false \\
+        $\implies$ $\impliedby$ $\iff$ $\neg$ & Meta-level connectives \\
+        
+        $\llbracket \phi \rrbracket_v$ & denotation of $\phi$ under valuation $v$\\
+        $\phi \vdash \psi$ & $\phi$ proves $\psi$ \\
+        $\phi \models \psi$ & $\phi$ models $\psi$ \\
+        $\ulcorner \phi \urcorner$ & Quine quotations/G\"odel numbering \\
+        $\bigwedge, \bigvee$ & \\        
+        $\bigdoublevee$, $\bigdoublewedge$ & See Section 1.3 \\
+        $\cup$, $\cap$, $\subset$, $\subseteq$, $\subsetneq$ & Set operations \\
+        $\sqcup$, $\sqcap$, $\sqsubset$, $\sqsubseteq$ & Misc \\
+\end{tabular}
+\end{table}
+
+\subsection{Typesetting proof trees}
+
+\begin{prooftree}
+    \AxiomC{}
+    \RightLabel{identity}
+    \UnaryInfC{$X \to X$}
+\end{prooftree} 
+
+\begin{prooftree}
+\AxiomC{$H$}
+\RightLabel{\scriptsize{$\lor$ introduction left}}
+\UnaryInfC{$H \lor G$}
+\end{prooftree} 
+
+\begin{prooftree}
+    \AxiomC{$H$}
+    \AxiomC{$G$}
+    \RightLabel{\scriptsize{$\land$ introduction}}
+    \BinaryInfC{$H \land G$}
+\end{prooftree} 
+
+
+\begin{prooftree}
+    \AxiomC{$A$}
+    \AxiomC{$B$}
+    \AxiomC{$C$}
+    \RightLabel{\scriptsize{weird rule}}
+    \TrinaryInfC{$D$}
+\end{prooftree} 
+
+\end{document}
+
+
+
