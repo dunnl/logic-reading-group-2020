@@ -10,13 +10,15 @@
 \usepackage{fancyhdr}
 \usepackage{siunitx}
 \usepackage[bb=boondox]{mathalfa}
-\usepackage{tkz-berge}
+%\usepackage{tkz-berge} % Just uncomment if you need this
 \usepackage{enumerate}
 \usepackage{stackengine}
 \usepackage{algorithm}
 \usepackage{algorithmic}
 \usepackage{comment}
 \usepackage{bussproofs}
+\usepackage{xcolor}
+\usepackage{bm}
 % DEFINE DEVIDES
 \makeatletter
 \def\localbig#1#2{%
@@ -156,6 +158,160 @@
  \end{enumerate}
 \end{problem}
 \begin{solution}
+\newcommand*\tolor{{$\to$/$\lor$}}
+\newcommand*\colop[2]{\mathbin{\color{#1}#2}} % Color a binary op in red.
+%
+Let us start with some general remarks about the provenance of results used in
+this exercise, so we don't have to spell it out every time.
+
+A very common theorem to remove implication is
+$(\phi \to \psi) \approx (\neg\phi \lor \psi)$
+(Theorem 1.3.4 (b)), herafter referred to as the \tolor{} equivalence.
+This is necessary because we don't have simple rules to directly reason about
+implication algebraically.
+
+Common forms of algebraic properties (\textit{e.g.}, commutativity,
+distributivity, involutivity of $\neg$, De Morgan laws) are provided by
+Theorem 1.3.1. We make generous use of associativity without mentioning it.
+
+The law of excluded middle, $\models \phi \lor \neg \phi$,
+is proved in Exercise 1.2.1 (f).
+
+Colors will be used to highlight algebraic transformations in big expressions.
+
+\begin{enumerate}[(a)]
+  \item $\models (\phi \to \psi) \leftrightarrow (\neg \psi \to \neg \phi)$
+%%% (a)
+\begin{align*}
+  & \phi \to \psi && \\
+\approx{} & \neg \phi \lor \psi     && \text{by \tolor{}} \\
+\approx{} & \psi \lor \neg \phi     && \text{by commutativity} \\
+\approx{} & \neg \neg \psi \lor \neg \phi  && \text{by double negation} \\
+\approx{} & \neg \psi \to \neg \phi && \text{by \tolor{}} \\
+\end{align*}
+
+  \item $\models (\phi \to \psi) \land (\psi \to \sigma) \to (\phi \to \sigma)$
+%%% (b)
+\begin{align*}
+    & (\phi \colop{red}{\to} \psi) \land (\psi \colop{red}{\to} \sigma) \to (\phi \colop{red}{\to} \sigma) &&
+\\ \approx{}
+    & \neg ((\neg \phi \lor \psi) \land (\neg \psi \lor \sigma)) \lor \neg \phi \lor \sigma
+    && \text{\textcolor{red}{by} $\to$/$\lor$,}
+\\ \approx{}
+    & ({\color{magenta}\phi \land \neg \psi}) \lor (\psi \land \neg \sigma) \lor \neg \phi \lor \sigma
+    && \text{by De Morgan,}
+\\ \approx{}
+    & ({\color{magenta}\phantom{\neg}\phi} \lor (\psi \land \neg \sigma) \lor \neg \phi \lor \sigma) \colop{magenta}{\land} {} &&
+\\  & ({\color{magenta}         \neg \psi} \lor (\psi \land \neg \sigma) \lor \neg \phi \lor \sigma)
+    && \text{\textcolor{magenta}{by} distributivity,}
+\\ \approx{}
+    & (\phi \lor \neg \phi \lor \dots) \land {} &&
+\\
+    & (\neg \psi \lor ({\color{teal}\psi \land \neg \sigma}) \lor \neg \phi \lor \sigma)
+    && \text{reordering the first conjunct by commutativity of $\lor$,}
+\\ & && \text{now hiding most of that conjunct for clarity,}
+\\ \approx{}
+    & (\phi \lor \neg \phi \lor \dots) \land {} &&
+\\  & (\neg \psi \lor {\color{teal}\phantom{\neg}\psi}   \lor \neg \phi \lor \sigma) \land {} &&
+\\  & (\neg \psi \lor {\color{teal}         \neg \sigma} \lor \neg \phi \lor \sigma)
+    && \text{\textcolor{teal}{by} distributivity,}
+\\ \approx {}
+    & (\bm{\phi \lor \neg \phi} \lor \dots) \land {} &&
+\\  & (\bm{\psi \lor \neg \psi} \lor \neg \phi \lor \sigma) \land {} &&
+\\  & (\bm{\sigma \lor \neg \sigma} \lor \neg \psi \lor \neg \phi)
+    && \text{by commutativity of $\lor$,}
+\\ \approx {}
+    & \top \land \top \land \top \approx \top
+    && \text{since all three conjuncts are now tautologies by excluded middle.}
+\end{align*}
+
+  \item $\models (\phi \to (\psi \land \neg \psi) \to \neg \phi$
+%%% (c)
+\begin{align*}
+  & (\phi \to (\psi \land \neg \psi)) \to \neg \phi &&
+\\ \approx{}
+  & (\phi \to \bot) \to \neg \phi
+  && \text{by Theorem 1.3.4 (g),}
+\\ \approx{}
+  & \neg \phi \to \neg \phi
+  && \text{by Theorem 1.3.4 (f),}
+\\ \approx{}
+  & \top && \text{by reflexivity of implication.}
+\end{align*}
+
+  \item $\models (\phi \to \neg \psi) \to \neg \phi$
+%%% (d)
+\begin{align*}
+  & (\phi \to \neg \phi) \to \neg \phi &&
+\\ \approx{}
+  & \neg (\neg \phi \vee \neg \phi) \vee \neg \phi
+  && \text{by \tolor,}
+\\ \approx{}
+  & (\phi \wedge \phi) \vee \neg \phi
+  && \text{by De Morgan,}
+\\ \approx{}
+  & \phi \lor \neg \phi
+  && \text{by idempotence,}
+\\ \approx{}
+  & \top
+  && \text{by excluded middle.}
+\end{align*}
+
+  \item $\models \neg (\phi \land \neg \phi)$
+%%% (e)
+\begin{align*}
+  & \neg (\phi \land \neg \phi) &&
+\\ \approx{}
+  & (\neg \phi \lor \phi)
+  && \text{by De Morgan,}
+\\ \approx{}
+  & \top
+  && \text{by excluded middle.}
+\end{align*}
+
+  \item $\models \phi \to (\psi \to \phi \land \psi)$
+%%% (f)
+\begin{align*}
+  & \phi \to (\psi \to \phi \land \psi) &&
+\\ \approx{}
+  & \neg \phi \lor \neg \psi \lor ({\color{red} \phi \land \psi})
+  && \text{by \tolor,}
+\\ \approx{}
+    & (\neg \phi \lor \neg \psi \lor {\color{red}\phi}) \colop{red}{\land} {}
+    &&
+\\  & (\neg \phi \lor \neg \psi \lor {\color{red}\psi})
+    && \text{\textcolor{red}{by} distributivity}
+\\ \approx{}
+    & (\bm{\neg \phi} \lor {\color{gray}\neg \psi} \lor \bm{\phi}) \land {}
+    &&
+\\  & ({\color{gray}\neg \phi} \lor \bm{\neg \psi \lor \psi})
+    && \text{the two clauses are tautologies by excluded middle,}
+\\ \approx{}
+    & \top \wedge \top \approx \top.
+    &&
+\end{align*}
+
+  \item $\models ((\phi \to \psi) \to \phi) \to \phi$
+%%% (g)
+\begin{align*}
+  & ((\phi \to \psi) \to \phi) \to \phi &
+\\ \approx{}
+  & \neg (\neg (\neg \phi \lor \psi) \lor \phi) \lor \phi
+  && \text{by \tolor,}
+\\ \approx{}
+  & ({\color{teal}(\neg \phi \lor \psi) \land \neg \phi}) \lor \phi
+  && \text{by De Morgan,}
+\\ \approx{}
+  & ({\color{teal}(\neg \phi \lor \psi)} \lor \phi) \colop{teal}{\land} ({\color{teal}\neg \phi} \lor \phi)
+  && \text{{\color{teal}by} distributivity,}
+\\ \approx{}
+  & (\neg \phi \lor {\color{gray}\psi} \lor \phi) \land (\neg \phi \lor \phi)
+  &&
+\\ \approx{}
+  & \top \land \top \approx \top
+  && \text{by excluded middle.}
+\end{align*}
+\end{enumerate}
 \end{solution}
 
 \begin{problem}[1.3.3] Show that $\{ \neg \}$ is not a functionally complete set of connectives. Same for $\{\to, \lor\}$ (hint: show that each formula $\phi$ with only $\to$ and $\lor$ there is a valuation v such that $\llbracket \phi \rrbracket_v = 1$)
