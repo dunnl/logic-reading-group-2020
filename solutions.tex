@@ -231,12 +231,13 @@
     \end{prooftree}
 
     \item Let
-    \begin{prooftree}
+    {
         \AxiomC{$\mathcal D_1$}
         \noLine
         \UnaryInfC{$\parens{\varphi \to \psi} \to \lnot\parens{\varphi \land \lnot \psi}$}
-    \end{prooftree}
-    be
+        \DisplayProof
+    }
+    $=$
     \begin{prooftree}
                 \AxiomC{$\bracks{\varphi \land \lnot \psi}^1$}
                 \RightLabel{$\land E (l)$}
@@ -261,12 +262,13 @@
         \UnaryInfC{$\parens{\varphi \to \psi} \to \lnot\parens{\varphi \land \lnot \psi}$}
     \end{prooftree}
     and let
-    \begin{prooftree}
+    {
         \AxiomC{$\mathcal D_2$}
         \noLine
         \UnaryInfC{$\lnot \parens{\varphi \land \lnot \psi} \to \parens{\varphi \to \psi}$}
-    \end{prooftree}
-    be
+        \DisplayProof
+    }
+    $=$
     \begin{prooftree}
                 \AxiomC{$\bracks{\varphi}^4$}
                 \AxiomC{$\bracks{\lnot \psi}^3$}
@@ -303,12 +305,13 @@
     \end{prooftree}
 
     \item Let
-    \begin{prooftree}
+    {
         \AxiomC{$\mathcal D_1$}
         \noLine
         \UnaryInfC{$\parens{\varphi \land \psi} \to \lnot\parens{\varphi \to \lnot \psi}$}
-    \end{prooftree}
-    be
+        \DisplayProof
+    }
+    $=$
     \begin{prooftree}
             \AxiomC{$\bracks{\varphi \land \psi}^2$}
             \RightLabel{$\land E (r)$}
@@ -333,14 +336,15 @@
         \UnaryInfC{$\parens{\varphi \land \psi} \to \lnot\parens{\varphi \to \lnot \psi}$}
     \end{prooftree}
     let
-    \begin{prooftree}
+    {
         \AxiomC{$\lnot\parens{\varphi \to \lnot \psi}$}
         \noLine
         \UnaryInfC{$\mathcal D_2$}
         \noLine
         \UnaryInfC{$\varphi$}
-    \end{prooftree}
-    be
+        \DisplayProof
+    }
+    $=$
     \begin{prooftree}
                 \AxiomC{$\bracks{\varphi}^3$}
                 \AxiomC{$\bracks{\lnot \varphi}^4$}
@@ -361,14 +365,15 @@
         \UnaryInfC{$\varphi$}
     \end{prooftree}
     and let
-    \begin{prooftree}
+    {
         \AxiomC{$\lnot\parens{\varphi \to \lnot \psi}$}
         \noLine
         \UnaryInfC{$\mathcal D_3$}
         \noLine
         \UnaryInfC{$\psi$}
-    \end{prooftree}
-    be
+        \DisplayProof
+    }
+    $=$
     \begin{prooftree}
             \AxiomC{$\bracks{\lnot \psi}^5$}
             \RightLabel{$\to I$}
