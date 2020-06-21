@@ -10,13 +10,15 @@
 \usepackage{fancyhdr}
 \usepackage{siunitx}
 \usepackage[bb=boondox]{mathalfa}
-\usepackage{tkz-berge}
+%\usepackage{tkz-berge} % Just uncomment if you need this
 \usepackage{enumerate}
 \usepackage{stackengine}
 \usepackage{algorithm}
 \usepackage{algorithmic}
 \usepackage{comment}
 \usepackage{bussproofs}
+\usepackage{xcolor}
+\usepackage{bm}
 % DEFINE DEVIDES
 \makeatletter
 \def\localbig#1#2{%
@@ -60,9 +62,13 @@
 {\begin{proof}[Solution]}
 	{\end{proof}}
 
+\renewcommand{\phi}{\varphi}
+
 \newcommand*{\lsim}{\mathord{\sim}}
 
 \newcommand*{\braces}[1]{\left\{#1\right\}}
+\newcommand*{\bracks}[1]{\left\lbrack{#1}\right\rbrack}
+\newcommand*{\parens}[1]{\left({#1}\right)}
 
 \newcommand\overla[3][0pt]{\stackengine{0pt}{#3}{\kern#1#2}{O}{c}{F}{F}{L}}
 \newcommand\overlam[3][0pt]{\text{\stackengine{0pt}{$#3$}{\kern#1$#2$}{O}{c}{F}{F}{L}}}
@@ -103,13 +109,13 @@
 
 \begin{problem}[1.2.1] Check by the truth table method which of the following propositions are tautologies:
     \begin{enumerate}[(a)]
-        \item $(\neg \phi \lor \psi) \iff (\psi \to \phi)$
+        \item $(\neg \phi \lor \psi) \leftrightarrow (\psi \to \phi)$
         \item $\phi \to ((\psi \to \sigma)
                           \to
                           ((\phi \to \psi)
                             \to (\phi \to \sigma)
                             ))$
-        \item $(\phi \to \neg \phi) \iff \neg \phi$
+        \item $(\phi \to \neg \phi) \leftrightarrow \neg \phi$
         \item $\neg (\phi \to \neg \phi)$
     \end{enumerate}
 \end{problem}
@@ -173,6 +179,160 @@
  \end{enumerate}
 \end{problem}
 \begin{solution}
+\newcommand*\tolor{{$\to$/$\lor$}}
+\newcommand*\colop[2]{\mathbin{\color{#1}#2}} % Color a binary op in red.
+%
+Let us start with some general remarks about the provenance of results used in
+this exercise, so we don't have to spell it out every time.
+
+A very common theorem to remove implication is
+$(\phi \to \psi) \approx (\neg\phi \lor \psi)$
+(Theorem 1.3.4 (b)), herafter referred to as the \tolor{} equivalence.
+This is necessary because we don't have simple rules to directly reason about
+implication algebraically.
+
+Common forms of algebraic properties (\textit{e.g.}, commutativity,
+distributivity, involutivity of $\neg$, De Morgan laws) are provided by
+Theorem 1.3.1. We make generous use of associativity without mentioning it.
+
+The law of excluded middle, $\models \phi \lor \neg \phi$,
+is proved in Exercise 1.2.1 (f).
+
+Colors will be used to highlight algebraic transformations in big expressions.
+
+\begin{enumerate}[(a)]
+  \item $\models (\phi \to \psi) \leftrightarrow (\neg \psi \to \neg \phi)$
+%%% (a)
+\begin{align*}
+  & \phi \to \psi && \\
+\approx{} & \neg \phi \lor \psi     && \text{by \tolor{}} \\
+\approx{} & \psi \lor \neg \phi     && \text{by commutativity} \\
+\approx{} & \neg \neg \psi \lor \neg \phi  && \text{by double negation} \\
+\approx{} & \neg \psi \to \neg \phi && \text{by \tolor{}} \\
+\end{align*}
+
+  \item $\models (\phi \to \psi) \land (\psi \to \sigma) \to (\phi \to \sigma)$
+%%% (b)
+\begin{align*}
+    & (\phi \colop{red}{\to} \psi) \land (\psi \colop{red}{\to} \sigma) \to (\phi \colop{red}{\to} \sigma) &&
+\\ \approx{}
+    & \neg ((\neg \phi \lor \psi) \land (\neg \psi \lor \sigma)) \lor \neg \phi \lor \sigma
+    && \text{\textcolor{red}{by} $\to$/$\lor$,}
+\\ \approx{}
+    & ({\color{magenta}\phi \land \neg \psi}) \lor (\psi \land \neg \sigma) \lor \neg \phi \lor \sigma
+    && \text{by De Morgan,}
+\\ \approx{}
+    & ({\color{magenta}\phantom{\neg}\phi} \lor (\psi \land \neg \sigma) \lor \neg \phi \lor \sigma) \colop{magenta}{\land} {} &&
+\\  & ({\color{magenta}         \neg \psi} \lor (\psi \land \neg \sigma) \lor \neg \phi \lor \sigma)
+    && \text{\textcolor{magenta}{by} distributivity,}
+\\ \approx{}
+    & (\phi \lor \neg \phi \lor \dots) \land {} &&
+\\
+    & (\neg \psi \lor ({\color{teal}\psi \land \neg \sigma}) \lor \neg \phi \lor \sigma)
+    && \text{reordering the first conjunct by commutativity of $\lor$,}
+\\ & && \text{now hiding most of that conjunct for clarity,}
+\\ \approx{}
+    & (\phi \lor \neg \phi \lor \dots) \land {} &&
+\\  & (\neg \psi \lor {\color{teal}\phantom{\neg}\psi}   \lor \neg \phi \lor \sigma) \land {} &&
+\\  & (\neg \psi \lor {\color{teal}         \neg \sigma} \lor \neg \phi \lor \sigma)
+    && \text{\textcolor{teal}{by} distributivity,}
+\\ \approx {}
+    & (\bm{\phi \lor \neg \phi} \lor \dots) \land {} &&
+\\  & (\bm{\psi \lor \neg \psi} \lor \neg \phi \lor \sigma) \land {} &&
+\\  & (\bm{\sigma \lor \neg \sigma} \lor \neg \psi \lor \neg \phi)
+    && \text{by commutativity of $\lor$,}
+\\ \approx {}
+    & \top \land \top \land \top \approx \top
+    && \text{since all three conjuncts are now tautologies by excluded middle.}
+\end{align*}
+
+  \item $\models (\phi \to (\psi \land \neg \psi) \to \neg \phi$
+%%% (c)
+\begin{align*}
+  & (\phi \to (\psi \land \neg \psi)) \to \neg \phi &&
+\\ \approx{}
+  & (\phi \to \bot) \to \neg \phi
+  && \text{by Theorem 1.3.4 (g),}
+\\ \approx{}
+  & \neg \phi \to \neg \phi
+  && \text{by Theorem 1.3.4 (f),}
+\\ \approx{}
+  & \top && \text{by reflexivity of implication.}
+\end{align*}
+
+  \item $\models (\phi \to \neg \psi) \to \neg \phi$
+%%% (d)
+\begin{align*}
+  & (\phi \to \neg \phi) \to \neg \phi &&
+\\ \approx{}
+  & \neg (\neg \phi \vee \neg \phi) \vee \neg \phi
+  && \text{by \tolor,}
+\\ \approx{}
+  & (\phi \wedge \phi) \vee \neg \phi
+  && \text{by De Morgan,}
+\\ \approx{}
+  & \phi \lor \neg \phi
+  && \text{by idempotence,}
+\\ \approx{}
+  & \top
+  && \text{by excluded middle.}
+\end{align*}
+
+  \item $\models \neg (\phi \land \neg \phi)$
+%%% (e)
+\begin{align*}
+  & \neg (\phi \land \neg \phi) &&
+\\ \approx{}
+  & (\neg \phi \lor \phi)
+  && \text{by De Morgan,}
+\\ \approx{}
+  & \top
+  && \text{by excluded middle.}
+\end{align*}
+
+  \item $\models \phi \to (\psi \to \phi \land \psi)$
+%%% (f)
+\begin{align*}
+  & \phi \to (\psi \to \phi \land \psi) &&
+\\ \approx{}
+  & \neg \phi \lor \neg \psi \lor ({\color{red} \phi \land \psi})
+  && \text{by \tolor,}
+\\ \approx{}
+    & (\neg \phi \lor \neg \psi \lor {\color{red}\phi}) \colop{red}{\land} {}
+    &&
+\\  & (\neg \phi \lor \neg \psi \lor {\color{red}\psi})
+    && \text{\textcolor{red}{by} distributivity}
+\\ \approx{}
+    & (\bm{\neg \phi} \lor {\color{gray}\neg \psi} \lor \bm{\phi}) \land {}
+    &&
+\\  & ({\color{gray}\neg \phi} \lor \bm{\neg \psi \lor \psi})
+    && \text{the two clauses are tautologies by excluded middle,}
+\\ \approx{}
+    & \top \wedge \top \approx \top.
+    &&
+\end{align*}
+
+  \item $\models ((\phi \to \psi) \to \phi) \to \phi$
+%%% (g)
+\begin{align*}
+  & ((\phi \to \psi) \to \phi) \to \phi &
+\\ \approx{}
+  & \neg (\neg (\neg \phi \lor \psi) \lor \phi) \lor \phi
+  && \text{by \tolor,}
+\\ \approx{}
+  & ({\color{teal}(\neg \phi \lor \psi) \land \neg \phi}) \lor \phi
+  && \text{by De Morgan,}
+\\ \approx{}
+  & ({\color{teal}(\neg \phi \lor \psi)} \lor \phi) \colop{teal}{\land} ({\color{teal}\neg \phi} \lor \phi)
+  && \text{{\color{teal}by} distributivity,}
+\\ \approx{}
+  & (\neg \phi \lor {\color{gray}\psi} \lor \phi) \land (\neg \phi \lor \phi)
+  &&
+\\ \approx{}
+  & \top \land \top \approx \top
+  && \text{by excluded middle.}
+\end{align*}
+\end{enumerate}
 \end{solution}
 
 \begin{problem}[1.3.3] Show that $\{ \neg \}$ is not a functionally complete set of connectives. Same for $\{\to, \lor\}$ (hint: show that each formula $\phi$ with only $\to$ and $\lor$ there is a valuation v such that $\llbracket \phi \rrbracket_v = 1$)
@@ -212,42 +372,346 @@
 
 \begin{problem}[1.4.1] Show that the following propositions are derivable (note: see at the bottom for guidance on formatting proof trees)
 \begin{enumerate}[(a)]
-    \item $\phi \to \phi$
-    \item $\bot \to \phi$
-    \item $\neg (\phi \land \neg \phi)$
-    \item $(\phi \to \psi) \leftrightarrow \neg (\phi \land \neg \psi)$
-    \item $(\phi \land \psi) \leftrightarrow (\phi \to \neg \psi)$
-    \item $\phi \to (\psi \to (\phi \land \psi))$
+    \item $\varphi \to \varphi$
+    \item $\bot \to \varphi$
+    \item $\neg (\varphi \land \neg \varphi)$
+    \item $(\varphi \to \psi) \leftrightarrow \neg (\varphi \land \neg \psi)$
+    \item $(\varphi \land \psi) \leftrightarrow \neg (\varphi \to \neg \psi)$
+    \item $\varphi \to (\psi \to (\varphi \land \psi))$
 \end{enumerate}
 \end{problem}
-\begin{solution}
-    Here is (c) for notational reference:
+\begin{solution}\strut
+\begin{enumerate}[(a)]
 
+    \item\strut
     \begin{prooftree}
-        \AxiomC{$[ \phi \land \neg \phi]^1$}
-        \RightLabel{$\land E (l)$}
-        \UnaryInfC{$\phi$}
-        \AxiomC{$[ \phi \land \neg \phi]^1$}
-        \RightLabel{$\land E (r)$}
-        \UnaryInfC{$\neg \phi$}
-        \RightLabel{$\to E$}
-        \BinaryInfC{$\bot$}
-        \RightLabel{$\to I$}
-        \UnaryInfC{$\neg (\phi \land \neg \phi)$}
+        \AxiomC{$\bracks{\varphi}^1$}
+
+        \RightLabel{$\to I_1$}
+        \UnaryInfC{$\varphi \to \varphi$}
     \end{prooftree}
 
+    \item\strut
+    \begin{prooftree}
+        \AxiomC{$\bracks{\bot}^1$}
+
+        \RightLabel{$\bot$}
+        \UnaryInfC{$\varphi$}
+
+        \RightLabel{$\to I_1$}
+        \UnaryInfC{$\bot \to \varphi$}
+    \end{prooftree}
+
+    \item Here is (c) for notational reference:
+    \begin{prooftree}
+        \AxiomC{$[ \varphi \land \neg \varphi]^1$}
+        \RightLabel{$\land E (l)$}
+        \UnaryInfC{$\varphi$}
+        \AxiomC{$[ \varphi \land \neg \varphi]^1$}
+        \RightLabel{$\land E (r)$}
+        \UnaryInfC{$\neg \varphi$}
+        \RightLabel{$\to E$}
+        \BinaryInfC{$\bot$}
+        \RightLabel{$\to I_1$}
+        \UnaryInfC{$\neg (\varphi \land \neg \varphi)$}
+    \end{prooftree}
+
+    \item Let
+    {
+        \AxiomC{$\mathcal D_1$}
+        \noLine
+        \UnaryInfC{$\parens{\varphi \to \psi} \to \lnot\parens{\varphi \land \lnot \psi}$}
+        \DisplayProof
+    }
+    $=$
+    \begin{prooftree}
+                \AxiomC{$\bracks{\varphi \land \lnot \psi}^1$}
+                \RightLabel{$\land E (l)$}
+                \UnaryInfC{$\varphi$}
+
+                \AxiomC{$\bracks{\varphi \to \psi}^2$}
+
+            \RightLabel{$\to E$}
+            \BinaryInfC{$\psi$}
+
+            \AxiomC{$\bracks{\varphi \land \lnot \psi}^1$}
+            \RightLabel{$\land E (r)$}
+            \UnaryInfC{$\lnot \psi$}
+
+        \RightLabel{$\to E$}
+        \BinaryInfC{$\bot$}
+
+        \RightLabel{$\to I_1$}
+        \UnaryInfC{$\lnot\parens{\varphi \land \lnot \psi}$}
+
+        \RightLabel{$\to I_2$}
+        \UnaryInfC{$\parens{\varphi \to \psi} \to \lnot\parens{\varphi \land \lnot \psi}$}
+    \end{prooftree}
+    and let
+    {
+        \AxiomC{$\mathcal D_2$}
+        \noLine
+        \UnaryInfC{$\lnot \parens{\varphi \land \lnot \psi} \to \parens{\varphi \to \psi}$}
+        \DisplayProof
+    }
+    $=$
+    \begin{prooftree}
+                \AxiomC{$\bracks{\varphi}^4$}
+                \AxiomC{$\bracks{\lnot \psi}^3$}
+
+            \RightLabel{$\land I$}
+            \BinaryInfC{$\phi \land \lnot \psi$}
+
+            \AxiomC{$\bracks{\lnot\parens{\varphi \land \lnot \psi}}^5$}
+
+        \RightLabel{$\to E$}
+        \BinaryInfC{$\bot$}
+
+        \RightLabel{RAA${}_3$}
+        \UnaryInfC{$\psi$}
+
+        \RightLabel{$\to I_4$}
+        \UnaryInfC{$\varphi \to \psi$}
+
+        \RightLabel{$\to I_5$}
+        \UnaryInfC{$\lnot \parens{\varphi \land \lnot \psi} \to \parens{\varphi \to \psi}$}
+    \end{prooftree}
+    Then
+    \begin{prooftree}
+            \AxiomC{$\mathcal D_1$}
+            \noLine
+            \UnaryInfC{$\parens{\varphi \to \psi} \to \lnot\parens{\varphi \land \lnot \psi}$}
+
+            \AxiomC{$\mathcal D_2$}
+            \noLine
+            \UnaryInfC{$\lnot \parens{\varphi \land \lnot \psi} \to \parens{\varphi \to \psi}$}
+
+        \RightLabel{$\land I$}
+        \BinaryInfC{$\parens{\varphi \to \psi} \leftrightarrow \lnot\parens{\varphi \land \lnot \psi}$}
+    \end{prooftree}
+
+    \item Let
+    {
+        \AxiomC{$\mathcal D_1$}
+        \noLine
+        \UnaryInfC{$\parens{\varphi \land \psi} \to \lnot\parens{\varphi \to \lnot \psi}$}
+        \DisplayProof
+    }
+    $=$
+    \begin{prooftree}
+            \AxiomC{$\bracks{\varphi \land \psi}^2$}
+            \RightLabel{$\land E (r)$}
+            \UnaryInfC{$\psi$}
+
+                \AxiomC{$\bracks{\varphi \land \psi}^2$}
+                \RightLabel{$\land E (l)$}
+                \UnaryInfC{$\varphi$}
+
+                \AxiomC{$\bracks{\varphi \to \lnot \psi}^1$}
+
+            \RightLabel{$\to E$}
+            \BinaryInfC{$\lnot \psi$}
+
+        \RightLabel{$\to E$}
+        \BinaryInfC{$\bot$}
+
+        \RightLabel{$\to I_1$}
+        \UnaryInfC{$\lnot\parens{\varphi \to \lnot \psi}$}
+
+        \RightLabel{$\to I_2$}
+        \UnaryInfC{$\parens{\varphi \land \psi} \to \lnot\parens{\varphi \to \lnot \psi}$}
+    \end{prooftree}
+    let
+    {
+        \AxiomC{$\lnot\parens{\varphi \to \lnot \psi}$}
+        \noLine
+        \UnaryInfC{$\mathcal D_2$}
+        \noLine
+        \UnaryInfC{$\varphi$}
+        \DisplayProof
+    }
+    $=$
+    \begin{prooftree}
+                \AxiomC{$\bracks{\varphi}^3$}
+                \AxiomC{$\bracks{\lnot \varphi}^4$}
+
+            \RightLabel{$\to E$}
+            \BinaryInfC{$\bot$}
+            \RightLabel{$\bot$}
+            \UnaryInfC{$\lnot \psi$}
+            \RightLabel{$\to I_3$}
+            \UnaryInfC{$\varphi \to \lnot \psi$}
+
+            \AxiomC{$\lnot\parens{\varphi \to \lnot \psi}$}
+
+        \RightLabel{$\to E$}
+        \BinaryInfC{$\bot$}
+
+        \RightLabel{RAA${}_4$}
+        \UnaryInfC{$\varphi$}
+    \end{prooftree}
+    and let
+    {
+        \AxiomC{$\lnot\parens{\varphi \to \lnot \psi}$}
+        \noLine
+        \UnaryInfC{$\mathcal D_3$}
+        \noLine
+        \UnaryInfC{$\psi$}
+        \DisplayProof
+    }
+    $=$
+    \begin{prooftree}
+            \AxiomC{$\bracks{\lnot \psi}^5$}
+            \RightLabel{$\to I$}
+            \UnaryInfC{$\varphi \to \lnot \psi$}
+
+            \AxiomC{$\lnot\parens{\varphi \to \lnot \psi}$}
+
+        \RightLabel{$\to E$}
+        \BinaryInfC{$\bot$}
+
+        \RightLabel{RAA${}_5$}
+        \UnaryInfC{$\psi$}
+    \end{prooftree}
+    Then
+    \begin{prooftree}
+            \AxiomC{$\mathcal D_1$}
+            \noLine
+            \UnaryInfC{$\parens{\varphi \land \psi} \to \lnot\parens{\varphi \to \lnot \psi}$}
+
+                \AxiomC{$\bracks{\lnot\parens{\varphi \to \lnot \psi}}^6$}
+                \noLine
+                \UnaryInfC{$\mathcal D_2$}
+                \noLine
+                \UnaryInfC{$\varphi$}
+
+                \AxiomC{$\bracks{\lnot\parens{\varphi \to \lnot \psi}}^6$}
+                \noLine
+                \UnaryInfC{$\mathcal D_3$}
+                \noLine
+                \UnaryInfC{$\psi$}
+
+            \RightLabel{$\land I$}
+            \BinaryInfC{$\varphi \land \psi$}
+            \RightLabel{$\to I_6$}
+            \UnaryInfC{$\lnot \parens{\varphi \to \lnot \psi} \to \parens{\varphi \land \psi}$}
+
+        \RightLabel{$\land I$}
+        \BinaryInfC{$\parens{\varphi \land \psi} \leftrightarrow \lnot\parens{\varphi \to \lnot \psi}$}
+    \end{prooftree}
+
+    \item\strut
+    \begin{prooftree}
+            \AxiomC{$\bracks{\varphi}^2$}
+
+            \AxiomC{$\bracks{\psi}^1$}
+
+        \RightLabel{$\land I$}
+        \BinaryInfC{$\varphi \land \psi$}
+
+        \RightLabel{$\to I_1$}
+        \UnaryInfC{$\psi \to \parens{\varphi \land \psi}$}
+
+        \RightLabel{$\to I_2$}
+        \UnaryInfC{$\varphi \to \parens{\psi \to \parens{\varphi \land \psi}}$}
+    \end{prooftree}
+\end{enumerate}
 \end{solution}
 
 \begin{problem}[1.4.3] Show
     \begin{enumerate}[(a)]
-        \item $\phi \vdash \neg (\neg \phi \land \psi)$
-        \item $\neg (\phi \land \neg \psi), \phi \vdash \psi$
-        \item $\neg \phi \vdash (\phi \to \psi) \leftrightarrow \neg \phi$
-        \item $\vdash \phi \implies \vdash \psi \to \phi$
-        \item $\neg \phi \vdash \phi \to \psi$
+        \item $\varphi \vdash \neg (\neg \varphi \land \psi)$
+        \item $\neg (\varphi \land \neg \psi), \varphi \vdash \psi$
+        \item $\neg \varphi \vdash (\varphi \to \psi) \leftrightarrow \neg \varphi$
+        \item $\vdash \varphi \implies \vdash \psi \to \varphi$
+        \item $\neg \varphi \vdash \varphi \to \psi$
     \end{enumerate}
 \end{problem}
-\begin{solution}
+\begin{solution}\strut
+\begin{enumerate}[(a)]
+    \item\strut
+    \begin{prooftree}
+            \AxiomC{$\varphi$}
+
+                \AxiomC{$\bracks{\lnot \varphi \land \psi}^1$}
+                \RightLabel{$\land E (l)$}
+
+            \UnaryInfC{$\lnot \varphi$}
+
+        \RightLabel{$\to E$}
+        \BinaryInfC{$\bot$}
+
+        \RightLabel{$\to I_1$}
+        \UnaryInfC{$\lnot \parens{\lnot \varphi \land \psi}$}
+    \end{prooftree}
+
+    \item\strut
+    \begin{prooftree}
+                \AxiomC{$\varphi$}
+                \AxiomC{$\bracks{\lnot \psi}^1$}
+
+            \RightLabel{$\land I$}
+            \BinaryInfC{$\varphi \land \lnot \psi$}
+
+            \AxiomC{$\lnot \parens{\varphi \land \lnot \psi}$}
+
+        \RightLabel{$\to E$}
+        \BinaryInfC{$\bot$}
+
+        \RightLabel{RAA${}_1$}
+        \UnaryInfC{$\psi$}
+    \end{prooftree}
+
+    \item\strut
+    \begin{prooftree}
+            \AxiomC{$\lnot \varphi$}
+            \RightLabel{$\to I$}
+            \UnaryInfC{$\parens{\varphi \to \psi} \to \lnot \varphi$}
+
+                \AxiomC{$\bracks{\varphi}^1$}
+                \AxiomC{$\bracks{\lnot \varphi}^2$}
+
+            \RightLabel{$\to E$}
+            \BinaryInfC{$\bot$}
+            \RightLabel{$\bot$}
+            \UnaryInfC{$\psi$}
+            \RightLabel{$\to I_1$}
+            \UnaryInfC{$\varphi \to \psi$}
+            \RightLabel{$\to I_2$}
+            \UnaryInfC{$\lnot\varphi \to \parens{\varphi \to \psi}$}
+
+        \RightLabel{$\land I$}
+        \BinaryInfC{$\parens{\varphi \to \psi} \leftrightarrow \lnot \varphi$}
+    \end{prooftree}
+
+    \item
+    Assume there is a derivation
+    {\AxiomC{$\mathcal D$} \noLine \UnaryInfC{$\varphi$} \DisplayProof}.
+    \begin{prooftree}
+        \AxiomC{$\mathcal D$}
+
+        \noLine
+        \UnaryInfC{$\varphi$}
+
+        \RightLabel{$\to I$}
+        \UnaryInfC{$\psi \to \varphi$}
+    \end{prooftree}
+
+    \item\strut
+    \begin{prooftree}
+        \AxiomC{$\bracks{\varphi}^1$}
+        \AxiomC{$\lnot \varphi$}
+
+        \RightLabel{$\to E$}
+        \BinaryInfC{$\bot$}
+
+        \RightLabel{$\bot$}
+        \UnaryInfC{$\psi$}
+
+        \RightLabel{$\to I_1$}
+        \UnaryInfC{$\varphi \to \psi$}
+    \end{prooftree}
+\end{enumerate}
 \end{solution}
 
 \begin{problem}[1.4.4] Show
@@ -257,6 +721,59 @@
     \end{enumerate}
 \end{problem}
 \begin{solution}
+\newcommand*\tagone{{\color{red}1}}
+\newcommand*\tagtwo{{\color{teal}2}}
+\newcommand*\tagthree{{\color{olive}3}}
+% Colored "cancelling brackets"
+\newcommand*\colorcancel[3]{{\colorlet{savedcolor}{.}\color{#1}\left\lbrack\color{savedcolor}{#3}\color{#1}\right\rbrack}^{\color{#1}#2}}
+\newcommand*\cancelone[1]{\colorcancel{red}{1}{#1}}
+\newcommand*\canceltwo[1]{\colorcancel{teal}{2}{#1}}
+\newcommand*\cancelthree[1]{\colorcancel{olive}{3}{#1}}
+%
+  \begin{enumerate}[(a)]
+    \item\strut
+%%% (a)
+\begin{prooftree}
+          \AxiomC{$\canceltwo{\phi}$}
+            \AxiomC{$\cancelthree{\psi}$}
+            \RightLabel{${\to}I$}
+            \UnaryInfC{$\phi \to \psi$}
+            \AxiomC{$\cancelone{(\phi \to \psi) \to (\phi \to \sigma)}$}
+          \RightLabel{${\to}E$}
+          \BinaryInfC{$\phi\to\sigma$}
+        \RightLabel{${\to}E$}
+        \BinaryInfC{$\sigma$}
+      \RightLabel{${\to}I_\tagthree{}$}
+      \UnaryInfC{$\psi \to \sigma$}
+    \RightLabel{${\to}I_\tagtwo{}$}
+    \UnaryInfC{$\phi \to \psi \to \sigma$}
+  \RightLabel{${\to}I_\tagone{}$}
+  \UnaryInfC{$[(\phi \to \psi) \to (\phi \to \sigma)] \to [ \phi \to \psi \to \sigma]$}
+\end{prooftree}
+
+    \item\strut
+%%% (b)
+\begin{prooftree}
+              \AxiomC{$\cancelthree{\phi}$}
+              \AxiomC{$\canceltwo{\neg\phi}$}
+              \RightLabel{${\to} E$}
+              \BinaryInfC{$\bot$}
+            \RightLabel{$\bot$}
+            \UnaryInfC{$\psi$}
+          \RightLabel{${\to}I_\tagthree{}$}
+          \UnaryInfC{$\phi \to \psi$}
+          \AxiomC{$\cancelone{(\phi \to \psi) \to \phi}$}
+        \RightLabel{${\to}E$}
+        \BinaryInfC{$\phi$}
+        \AxiomC{$\canceltwo{\neg\phi}$}
+      \RightLabel{${\to}E$}
+      \BinaryInfC{$\bot$}
+    \RightLabel{$\text{RAA}_\tagtwo{}$}
+    \UnaryInfC{$\phi$}
+  \RightLabel{${\to} I_\tagone{}$}
+  \UnaryInfC{$((\phi \to \psi) \to \phi) \to \phi$}
+\end{prooftree}
+  \end{enumerate}
 \end{solution}
 
 \begin{problem}[1.4.10] Give an inductive definition of the relation $\vdash$ (c.f. Lemma 1.4.3). Show this relation coincides with the derived relation of Definition 1.4.2. Conclude that if $\Gamma \vdash \phi$, then $\Gamma$ contains a finite $\Delta$ such that $\Delta \vdash \phi$.
