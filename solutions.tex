@@ -83,7 +83,7 @@
 \begin{document}
 
 \maketitle
- 
+
 \newpage
 \begin{problem}[1.1.2]
     Show that $(( \to \not \in \textrm{PROP}$.
@@ -126,20 +126,39 @@
 \begin{solution}
 \end{solution}
 
- 
+
 \newcommand{\den}[1]{\llbracket #1 \rrbracket_v}
 \begin{problem}[1.2.5]
     Show
  \begin{enumerate}[(a)]
-     \item $\den{\phi \land \psi} = \den{\phi} \cdot \den{\psi}$
-     \item $\den{\phi \lor \psi} = \den{\phi} + \den{\psi} - \den{\phi} \cdot \den\psi$
-     \item $\den{\phi \to \psi} = 1 - \den{\phi} + \den{\phi} \cdot \den{\psi}$
-     \item $\den{\phi \leftrightarrow \psi} = 1 - \big|
-     \den{\phi} - \den{\psi} \big|$
+ \item $\den{\phi \land \psi} = \den{\phi} \cdot \den{\psi}$
+ \item $\den{\phi \lor \psi} = \den{\phi} + \den{\psi} - \den{\phi} \cdot \den\psi$
+ \item $\den{\phi \to \psi} = 1 - \den{\phi} + \den{\phi} \cdot \den{\psi}$
+ \item $\den{\phi \leftrightarrow \psi} = 1 - \big|\den{\phi} - \den{\psi} \big|$
  \end{enumerate}
 \end{problem}
 \begin{solution}
-    
+  Since for any $\phi, \den{\phi} \in \{0, 1\}$, each of the problems follow by case analysis on $\den{\phi}$ and $\den{\psi}$.
+  \begin{enumerate}[(a)]
+  \item
+    $\den{\phi \land \psi} = \min(\den{\phi}, \den{\psi}) = \den{\phi} \cdot \den{\psi}$
+  \item
+    $\den{\phi \lor \psi} = \max(\den{\phi}, \den{\psi}) = \den{\phi} + \den{\psi} - \den{\phi} \cdot \den\psi$
+  \item
+    $\den{\phi \to \psi} =
+    \begin{cases}
+      0 \text{ if $\den{\phi} = 1$ and $\den{\psi} = 0$} \\
+      1 \text{ otherwise}
+    \end{cases}
+    = 1 - \den{\phi} + \den{\phi} \cdot \den{\psi}$
+  \item
+    $\den{\phi \leftrightarrow \psi} =
+    \begin{cases}
+      1 \text{ if $\den{\phi} = \den{\psi}$} \\
+      0 \text{ otherwise}
+    \end{cases}
+    = 1 - \big|\den{\phi} - \den{\psi} \big|$
+  \end{enumerate}
 \end{solution}
 
 \begin{problem}[1.3.1] Show by `algebraic' means
@@ -159,6 +178,15 @@
 \begin{problem}[1.3.3] Show that $\{ \neg \}$ is not a functionally complete set of connectives. Same for $\{\to, \lor\}$ (hint: show that each formula $\phi$ with only $\to$ and $\lor$ there is a valuation v such that $\llbracket \phi \rrbracket_v = 1$)
 \end{problem}
 \begin{solution}
+  For $\{ \neg \}$, that it is not functionally complete follows from the claim that propositions using only the connective $\neg$ contain exactly one atom. This can be proved by induction on the rank of the proposition. Then it is clear that 2-ary connectives that depend on the values of both inputs cannot be represented using only $\neg$.
+
+  For $\{\to, \lor\}$, we prove by induction that every proposition $\phi$ using only connectives $\to$ and $\lor$, there is a valuation $v$ such that $\den{\phi} = 1$. From this it follows that we cannot define connectives always produce 0 regardless of input.
+
+  In the case of an atom $p$, then the valuation $v$ where $v(p) = 1$ suffices. (Note: here the atoms can't include $\bot$ since if it did, we could define $\neg$ using $\neg p = p \to \bot$)
+
+  In the case of $\phi \to \psi$, by the inductive hypothesis there is a valuation $v$ where $\den{\psi} = 1$. Then this valuation, extended to arbitrary values for atoms not in $\psi$, suffices for $\phi \to \psi$ as well.
+
+  In the case of $\phi \lor \psi$, by the inductive hypothesis there is a valuation $v$ where $\den{\phi} = 1$. Then this valuation, extended to arbitrary values for atoms not in $\phi$, suffices for $\phi \lor \psi$ as well.
 \end{solution}
 
 \begin{problem}[1.3.4] Show that the Sheffer stroke, $\uparrow$, forms a functionally complete set. (hint: $\models \neg \phi \leftrightarrow \phi \uparrow \phi$).
@@ -194,7 +222,7 @@
 \end{problem}
 \begin{solution}
     Here is (c) for notational reference:
-    
+
     \begin{prooftree}
         \AxiomC{$[ \phi \land \neg \phi]^1$}
         \RightLabel{$\land E (l)$}
@@ -284,12 +312,12 @@
         $\uparrow$ & Scheffer stroke (nand)\\
         $\top$, $\bot$ & Object-level true, false \\
         $\implies$ $\impliedby$ $\iff$ $\neg$ & Meta-level connectives \\
-        
+
         $\llbracket \phi \rrbracket_v$ & denotation of $\phi$ under valuation $v$\\
         $\phi \vdash \psi$ & $\phi$ proves $\psi$ \\
         $\phi \models \psi$ & $\phi$ models $\psi$ \\
         $\ulcorner \phi \urcorner$ & Quine quotations/G\"odel numbering \\
-        $\bigwedge, \bigvee$ & \\        
+        $\bigwedge, \bigvee$ & \\
         $\bigdoublevee$, $\bigdoublewedge$ & See Section 1.3 \\
         $\cup$, $\cap$, $\subset$, $\subseteq$, $\subsetneq$ & Set operations \\
         $\sqcup$, $\sqcap$, $\sqsubset$, $\sqsubseteq$ & Misc \\
@@ -302,20 +330,20 @@
     \AxiomC{}
     \RightLabel{identity}
     \UnaryInfC{$X \to X$}
-\end{prooftree} 
+\end{prooftree}
 
 \begin{prooftree}
 \AxiomC{$H$}
 \RightLabel{\scriptsize{$\lor$ introduction left}}
 \UnaryInfC{$H \lor G$}
-\end{prooftree} 
+\end{prooftree}
 
 \begin{prooftree}
     \AxiomC{$H$}
     \AxiomC{$G$}
     \RightLabel{\scriptsize{$\land$ introduction}}
     \BinaryInfC{$H \land G$}
-\end{prooftree} 
+\end{prooftree}
 
 
 \begin{prooftree}
@@ -324,9 +352,6 @@
     \AxiomC{$C$}
     \RightLabel{\scriptsize{weird rule}}
     \TrinaryInfC{$D$}
-\end{prooftree} 
+\end{prooftree}
 
 \end{document}
-
-
-
