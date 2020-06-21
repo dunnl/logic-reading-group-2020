@@ -691,6 +691,59 @@ Colors will be used to highlight algebraic transformations in big expressions.
     \end{enumerate}
 \end{problem}
 \begin{solution}
+\newcommand*\tagone{{\color{red}1}}
+\newcommand*\tagtwo{{\color{teal}2}}
+\newcommand*\tagthree{{\color{olive}3}}
+% Colored "cancelling brackets"
+\newcommand*\colorcancel[3]{{\colorlet{savedcolor}{.}\color{#1}\left\lbrack\color{savedcolor}{#3}\color{#1}\right\rbrack}^{\color{#1}#2}}
+\newcommand*\cancelone[1]{\colorcancel{red}{1}{#1}}
+\newcommand*\canceltwo[1]{\colorcancel{teal}{2}{#1}}
+\newcommand*\cancelthree[1]{\colorcancel{olive}{3}{#1}}
+%
+  \begin{enumerate}[(a)]
+    \item\strut
+%%% (a)
+\begin{prooftree}
+          \AxiomC{$\canceltwo{\phi}$}
+            \AxiomC{$\cancelthree{\psi}$}
+            \RightLabel{${\to}I$}
+            \UnaryInfC{$\phi \to \psi$}
+            \AxiomC{$\cancelone{(\phi \to \psi) \to (\phi \to \sigma)}$}
+          \RightLabel{${\to}E$}
+          \BinaryInfC{$\phi\to\sigma$}
+        \RightLabel{${\to}E$}
+        \BinaryInfC{$\sigma$}
+      \RightLabel{${\to}I_\tagthree{}$}
+      \UnaryInfC{$\psi \to \sigma$}
+    \RightLabel{${\to}I_\tagtwo{}$}
+    \UnaryInfC{$\phi \to \psi \to \sigma$}
+  \RightLabel{${\to}I_\tagone{}$}
+  \UnaryInfC{$[(\phi \to \psi) \to (\phi \to \sigma)] \to [ \phi \to \psi \to \sigma]$}
+\end{prooftree}
+
+    \item\strut
+%%% (b)
+\begin{prooftree}
+              \AxiomC{$\cancelthree{\phi}$}
+              \AxiomC{$\canceltwo{\neg\phi}$}
+              \RightLabel{${\to} E$}
+              \BinaryInfC{$\bot$}
+            \RightLabel{$\bot$}
+            \UnaryInfC{$\psi$}
+          \RightLabel{${\to}I_\tagthree{}$}
+          \UnaryInfC{$\phi \to \psi$}
+          \AxiomC{$\cancelone{(\phi \to \psi) \to \phi}$}
+        \RightLabel{${\to}E$}
+        \BinaryInfC{$\phi$}
+        \AxiomC{$\canceltwo{\neg\phi}$}
+      \RightLabel{${\to}E$}
+      \BinaryInfC{$\bot$}
+    \RightLabel{$\text{RAA}_\tagtwo{}$}
+    \UnaryInfC{$\phi$}
+  \RightLabel{${\to} I_\tagone{}$}
+  \UnaryInfC{$((\phi \to \psi) \to \phi) \to \phi$}
+\end{prooftree}
+  \end{enumerate}
 \end{solution}
 
 \begin{problem}[1.4.10] Give an inductive definition of the relation $\vdash$ (c.f. Lemma 1.4.3). Show this relation coincides with the derived relation of Definition 1.4.2. Conclude that if $\Gamma \vdash \phi$, then $\Gamma$ contains a finite $\Delta$ such that $\Delta \vdash \phi$.
