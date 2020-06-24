@@ -415,7 +415,23 @@ From this table we can see that $\lnot (\phi \leftrightarrow \psi)$ is equivalen
 
 From this table, we can see that  $((\phi \to \psi) \to \phi) \to \psi$ is equivalent to $\lnot \phi \lor \psi$. This expression is also in both DNF and CNF.
 
-The final formula is less tedious to deal with. Note that it is obvious that given any $\phi,psi$ $\phi \to (\phi \land \lnot \psi) \approx \lnot \psi$. This means that  $(\phi \to (\phi \land \neg \psi)) \land (\psi \to (\psi \land \neg \phi)) \approx \lnot psi \land \lnot \phi$. This expression is once again in both CNF and DNF.
+\begin{center}
+\begin{tabular}{|c|c|c|}
+  \hline
+  $\phi$ & $\psi$ &  $(\phi \to (\phi \land \neg \psi)) \land (\psi \to (\psi \land \neg \phi))$\\
+  \hline
+  0 & 0 & 1 \\
+  \hline
+  0 & 1 & 0 \\
+  \hline
+  1 & 0 & 1\\
+  \hline
+  1 & 1 & 1\\
+  \hline
+\end{tabular}
+\end{center}  
+
+This formula is equivalent to $\phi \lor \lnot \psi$. This expression is in both DNF and CNF.
 
 \end{solution}
 
