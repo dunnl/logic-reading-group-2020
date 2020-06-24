@@ -22,22 +22,22 @@
 % DEFINE DEVIDES
 \makeatletter
 \def\localbig#1#2{%
-	\sbox\z@{$\m@th#1
-		\sbox\tw@{$#1()$}%
-		\dimen@=\ht\tw@\advance\dimen@\dp\tw@
-		\nulldelimiterspace\z@\left#2\vcenter to1.2\dimen@{}\right.
-		$}\box\z@}
+        \sbox\z@{$\m@th#1
+                \sbox\tw@{$#1()$}%
+                \dimen@=\ht\tw@\advance\dimen@\dp\tw@
+                \nulldelimiterspace\z@\left#2\vcenter to1.2\dimen@{}\right.
+                $}\box\z@}
 
 \newcommand{\divides}{\mathrel{\mathpalette\dividesaux\relax}}
 \newcommand{\ndivides}{\mathrel{\mathpalette\ndividesaux\relax}}
 
 \newcommand{\dividesaux}[2]{\mbox{$\m@th#1\localbig{#1}|$}}
 \newcommand{\ndividesaux}[2]{%
-	\mkern.5mu
-	\ooalign{%
-		\hidewidth$\m@th#1\localbig{#1}|$\hidewidth\cr
-		$\m@th#1\nmid$\cr%
-	}%
+        \mkern.5mu
+        \ooalign{%
+                \hidewidth$\m@th#1\localbig{#1}|$\hidewidth\cr
+                $\m@th#1\nmid$\cr%
+        }%
 }
 \makeatother
 % DONE DIVIDES
@@ -60,7 +60,7 @@
 \newtheorem{definition}{Definition}
 \newenvironment{solution}
 {\begin{proof}[Solution]}
-	{\end{proof}}
+        {\end{proof}}
 
 \renewcommand{\phi}{\varphi}
 
@@ -100,6 +100,13 @@
 \begin{problem}[1.1.9] Show that a proposition with $n$ connectives has at most $2n + 1$ formulas.
 \end{problem}
 \begin{solution}
+    Let $\phi$ be an arbitrary proposition. We have four cases:
+    \begin{enumerate}
+        \item $\phi = \bot$. Then $\phi$ has $1$ connective (counting $\bot$ as a connective) and $1$ subformula. $2 \cdot 1 + 1 \geq 1$.
+        \item $\phi = p_i$. Then $\phi$ has $0$ connectives and $1$ subformula. $2 \cdot 0 + 1 \geq 1$.
+        \item $\phi = \psi_1 \square \psi_2$. Let $\psi_1$ have $i$ connectives and $\psi_2$ have $j$ connectives, so $\phi$ has $i + j + 1$. By induction, $\psi_1$ has at most $2 \cdot i + 1$ subformulas and $\psi_2$ has $2 \cdot j + 1$, so $\phi$ has $2 \cdot i + 2 \cdot j + 1 + 1 + 1 = 2 (i + j + 1) + 1$ which is at most $2 \cdot n + 1$.
+        \item $\phi = \neg \psi$. Let $\psi$ have $i$ connectives, with the IH that $\psi$ has at most $2 i + 1$ subformulas. Then $\phi$ has $i + 1$ connectives and at most $(2 \cdot i + 1 + i)$ subformulas. Now $2 \cdot (i + 1) + 1 \geq 2 \cdot i + 1 + 1$.
+    \end{enumerate}
 \end{solution}
 
 \begin{problem}[1.1.10] Show that for $\textrm{PROP}$ we have a unique decomposition theorem: for each non-atomic proposition $\sigma$ either there are two propositions $\phi$ and $\psi$ such that $\sigma = \phi \square \psi$ or there is a proposition $\phi$ such that $\sigma = \neg \phi$.
@@ -370,7 +377,7 @@ Colors will be used to highlight algebraic transformations in big expressions.
   In this solution, I will assert a series of equivalences for propositional formulae. All of them have them verified through checking their truth tables. In the interest of my time, your time, and my respect for your intelligence, I have not provided them.
 
   Note that the Sheffer stroke is equivalent to the logical operator familiar to many of us as NAND. Thus it should be unsurprising that $\phi \uparrow phi \approx \lnot phi$. From now on, I will assume that we have an $\lnot$ operator as we can simulate one through the previous equivalence.
-  
+
   We can, of course, simulate $\land$ using $\lnot$ and the Sheffer stroke, equivalent to NAND. $\phi \land \psi \approx \lnot (\phi \uparrow \psi)$.
 
   Now we can simulate $\lor$ through the following equivalence. $\phi \lor \psi \approx \lnot (\lnot \phi \land \lnot \psi)$.
@@ -408,7 +415,7 @@ For the first two formulae, I will provide truth tables and derive the CNF and D
   1 & 1 & 0\\
   \hline
 \end{tabular}
-\end{center}  
+\end{center}
 
 From this table we can see that $\lnot (\phi \leftrightarrow \psi)$ is equivalent to $\lnot \phi \lor \psi$ which is in both disjunctive normal form, it is the disjunction of two singleton conjunctions, and conjective normal form, it is the singleton conjunction of the disjunction $\lnot \phi \lor \psi$.
 
@@ -426,7 +433,7 @@ From this table we can see that $\lnot (\phi \leftrightarrow \psi)$ is equivalen
   1 & 1 & 1\\
   \hline
 \end{tabular}
-\end{center}  
+\end{center}
 
 From this table, we can see that  $((\phi \to \psi) \to \phi) \to \psi$ is equivalent to $\lnot \phi \lor \psi$. This expression is also in both DNF and CNF.
 
@@ -444,7 +451,7 @@ From this table, we can see that  $((\phi \to \psi) \to \phi) \to \psi$ is equiv
   1 & 1 & 1\\
   \hline
 \end{tabular}
-\end{center}  
+\end{center}
 
 This formula is equivalent to $\phi \lor \lnot \psi$. This expression is in both DNF and CNF.
 
@@ -885,6 +892,17 @@ This formula is equivalent to $\phi \lor \lnot \psi$. This expression is in both
     \end{enumerate}
 \end{problem}
 \begin{solution}
+    \textit{(a) $\iff$ (b)} A \textbf{false} solution:
+    Suppose $\{\phi_1 \ldots \phi_n\}$ is consistent and assume $\vdash \neg (\phi_1 \land \ldots \land \phi_n)$. Then there is a derivation of $\bot$ from hypotheses $(\phi_1 \land \ldots \land \phi_n)$, which contradicts consistency. Why this is a false proof: We do not know in general that the \textit{only} way to conclude $\vdash \neg \psi$ is by deriving $\bot$. For instance, we could use the elimination principle for functions, applied to a function which proves $\bot$.
+
+    \textit{(a) $\implies$ (b) and (c)} Suppose $\{\phi_1 \ldots \phi_n\}$ is consistent.
+    By Lemma 1.5.11 there is a valuation $v$ such that $\llbracket \phi_i \rrbracket = 1$ for all $i$. We therefore have $\llbracket (\phi_1 \land \ldots \land \phi_n) \rrbracket = 1$. Accordingly, $\llbracket \neg (\phi_1 \land \ldots \land \phi_n) \rrbracket_v = 0$. Therefore, by Corollary 1.5.12, $\Gamma \not \vdash \neg (\phi_1 \land \ldots \land \phi_n)$.
+    Furthermore, we have $\llbracket (\phi_1 \land \ldots \land \phi_{n-1}) \to \neg \phi_n \rrbracket = 0$, since the LHS has valuation $1$ and the RHS has valuation $0$. Again by Corollary 1.5.12, $\Gamma \not \vdash (\phi_1 \land \ldots \land \phi_{n-1}) \to \neg \phi_n $.
+
+    \textit{(b) or (c) $\implies$ (a)} Suppose $\Gamma \not \vdash \neg (\phi_1 \land \ldots \land \phi_n)$. By Corollary 1.5.12 there is a valuation $v$ for which $\llbracket \neg (\phi_1 \land \ldots \land \phi_n) \rrbracket_v = 0$. In this same valuation $\llbracket (\phi_1 \land \ldots \land \phi_n) \rrbracket_v = 1$. Therefore $\llbracket \phi_i \rrbracket_v$ for each $i$, and thus the set of sentences is consistent.
+
+    Suppose $\Gamma \not \vdash (\phi_1 \land \ldots \land \phi_{n-1}) \to \phi_n $. Then there is a valuation $v$ for which $\llbracket (\phi_1 \land \ldots \land \phi_{n-1}) \to \phi_n \rrbracket_v = 0$. Thus $\llbracket \neg (\phi_1 \land \ldots \land \phi_{n-1}) \rrbracket_v = 1$ and $\llbracket \neg  \phi_n \rrbracket_v = 0$. Therefore $\llbracket \phi_i \rrbracket_v$ for each $i$, and thus the set of sentences is consistent.
+
 \end{solution}
 
 \begin{problem}[1.5.3] $\phi$ is \textit{independent} from $\Gamma$ if
