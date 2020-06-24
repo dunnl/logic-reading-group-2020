@@ -3,3 +3,7 @@
 *.aux
 *.bbl
 *.gz
+
+# TeX generated files
+*.fls
+*.fdb_latexmk
