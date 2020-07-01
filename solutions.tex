@@ -19,6 +19,7 @@
 \usepackage{bussproofs}
 \usepackage{xcolor}
 \usepackage{bm}
+\usepackage{hyperref}
 % DEFINE DEVIDES
 \makeatletter
 \def\localbig#1#2{%
@@ -91,6 +92,7 @@
 \maketitle
 
 \newpage
+\section{Chapter 1}
 \begin{problem}[1.1.2]
     Show that $(( \to \not \in \textrm{PROP}$.
 \end{problem}
@@ -942,9 +944,129 @@ consistent. This shows that $\Gamma$ is a maximally consistent set.
   or $\neg \phi \in \Gamma$.
 \end{solution}
 
+\section{Chapter 2}
+\begin{problem}[2.5.4]
+    Show that $\not \models \forall x \exists y \phi \leftrightarrow \exists y \forall x \phi$.
+\end{problem}
+\begin{solution}
+\end{solution}
+
+\begin{problem}[2.5.5]
+    Show that $\models \phi \implies \big(\models \forall x \phi \textrm{ and } \models \exists x \phi\big)$
+\end{problem}
+\begin{solution}
+\end{solution}
+
+\begin{problem}[2.5.6]
+    Show that $\not \models \exists x \phi \to \forall x \phi$.
+\end{problem}
+\begin{solution}
+\end{solution}
+
+\begin{problem}[2.5.7]
+    Show that $\not \models \exists x \phi \land \exists x \psi \to \exists x (\phi \land \psi)$.
+\end{problem}
+\begin{solution}
+\end{solution}
+
+\begin{problem}[2.5.9(i)]
+    Show $\models \forall x(\phi \to \psi) \to (\forall x \phi \to \forall x \psi)$
+\end{problem}
+\begin{solution}
+\end{solution}
+
+\begin{problem}[2.5.9(ii)]
+    Show $\models (\exists x \phi \to \exists x \psi) \to \exists x (\phi \to \psi)$
+\end{problem}
+\begin{solution}
+\end{solution}
+
+\begin{problem}[2.5.9(iii)]
+    Show $\models \forall x (\phi \leftrightarrow \psi) \to (\forall x \phi \leftrightarrow \forall x \psi)$
+\end{problem}
+\begin{solution}
+\end{solution}
+
+\begin{problem}[2.5.9(iv)]
+    Show $\models (\forall x \phi \to \exists x \psi) \leftrightarrow \exists x (\phi \to \psi)$
+\end{problem}
+\begin{solution}
+\end{solution}
+
+\begin{problem}[2.5.9(v)]
+    Show $\models (\exists x \phi \to \forall x \psi) \to \forall x (\phi \to \psi)$
+\end{problem}
+\begin{solution}
+\end{solution}
+
+\begin{problem}[2.5.15]
+    Show $\models \exists x (\phi(x) \to \forall y \phi(y))$. (This is the \href{https://en.wikipedia.org/wiki/Drinker_paradox}{Drinker Paradox})
+\end{problem}
+\begin{solution}
+\end{solution}
+
+\begin{problem}[2.9.1]
+    $\vdash \exists x (\phi(x) \land \psi) \leftrightarrow \exists x \phi(x) \land \psi$ if $x \notin \textrm{FV}(\psi)$.
+\end{problem}
+\begin{solution}
+\end{solution}
+
+\begin{problem}[2.9.2]
+    $\vdash \forall x (\phi(x) \lor \psi) \leftrightarrow \forall x \phi(x) \lor \psi$ if $x \notin \textrm{FV}(\psi)$.
+\end{problem}
+\begin{solution}
+\end{solution}
+
+\begin{problem}[2.9.3]
+    $\vdash \forall x \phi(x) \leftrightarrow \neg \exists x \neg \phi(x)$
+\end{problem}
+\begin{solution}
+\end{solution}
+
+\begin{problem}[2.9.4]
+    $\vdash \neg \forall x \phi(x) \leftrightarrow \exists x \neg \phi(x)$
+\end{problem}
+\begin{solution}
+\end{solution}
+
+\begin{problem}[2.9.5]
+    $\vdash \neg \exists x \phi(x) \leftrightarrow \forall x \neg \phi(x)$
+\end{problem}
+\begin{solution}
+\end{solution}
+
+\begin{problem}[2.9.6]
+    $\vdash \exists x (\phi(x) \to \psi) \leftrightarrow (\forall x \phi(x) \to \psi)$ if $x \notin \textrm{FV}(\psi)$
+\end{problem}
+\begin{solution}
+\end{solution}
+
+\begin{problem}[2.9.7]
+    $\exists x(\phi \to \psi(x)) \leftrightarrow(\phi \to \exists x \psi(x))$ if $x \notin \textrm{FV}(\phi)$
+\end{problem}
+\begin{solution}
+\end{solution}
+
+\begin{problem}[2.9.8]
+    $\vdash \exists x \exists y \phi \leftrightarrow \exists y \exists x \phi$
+\end{problem}
+\begin{solution}
+\end{solution}
+
+\begin{problem}[2.9.9]
+    $\vdash \exists x \phi \leftrightarrow \phi$ if $x \notin \textrm{FV}(\phi)$
+\end{problem}
+\begin{solution}
+\end{solution}
+
+\begin{problem}[2.10.4]
+    $\vdash \forall x y z (x \neq y \to x \neq z \lor y \neq z)$
+\end{problem}
+\begin{solution}
+\end{solution}
+
 
 \section{Notation Reference}
-
 \begin{table}[H]
     \begin{tabular}{ll}
         \textbf{Notation} & \textbf{Usual meaning} \\
@@ -964,7 +1086,9 @@ consistent. This shows that $\Gamma$ is a maximally consistent set.
 \end{tabular}
 \end{table}
 
-\subsection{Typesetting proof trees}
+
+
+\section{Typesetting proof trees}
 
 \begin{prooftree}
     \AxiomC{}
