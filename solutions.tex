@@ -138,20 +138,20 @@
 \end{problem}
 \begin{solution}
   \begin{enumerate}[(a)]
-    \item By Definition 1.2.4 (iii), $\phi \models \phi$ iff $\forall v, \den {\phi} = 1 
+    \item By Definition 1.2.4 (iii), $\phi \models \phi$ iff $\forall v, \den {\phi} = 1
     \Rightarrow \den{\phi} = 1$, which holds.
     \item Given that $\forall v, \den{\psi} = 1 \Rightarrow \den{\phi} = 1$ and
     $\forall v, \den{\phi} = 1 \Rightarrow \den{\psi} = 1$, if we have that $\forall v, \den{\phi} = 1$,
     by our first assumption, we have that $\den{\phi} = 1$. If we apply this conclusion to our second
     assumption, we get that $\den{\sigma} = 1$.
     \item First, let's show that $\models \phi \to \psi \Rightarrow \phi \models \psi$.
-    Given that $\forall v, \den{\phi} \leq \den{\psi}$, forall $v$ where $\den{\phi} = 1$, 
+    Given that $\forall v, \den{\phi} \leq \den{\psi}$, forall $v$ where $\den{\phi} = 1$,
     $1 \leq \den{\phi}$, so $\den{\phi} = 1$, since the possible values of valuations is ${0,1}$.
     Second, we show the other direction. From $\forall v, \den{\psi} = 1 \Rightarrow \den{\psi} = 1$,
     for all possible valuations of $\psi$ and $\phi$ where this statement holds true (from a quick analysis
     on the truth table for implication), $\den{\phi} \leq \den{\psi}$.
   \end{enumerate}
-    
+
 \end{solution}
 
 
@@ -912,7 +912,7 @@ This formula is equivalent to $\phi \lor \lnot \psi$. This expression is in both
 \end{solution}
 
 
-\begin{problem}[1.5.6] Show that a consistent set $\Gamma$ is maximally consistent if either 
+\begin{problem}[1.5.6] Show that a consistent set $\Gamma$ is maximally consistent if either
   $\phi \in \Gamma$ or $\neg \phi \in \Gamma$ for all $\phi$.
 \end{problem}
 \begin{solution}
@@ -933,9 +933,9 @@ consistent. This shows that $\Gamma$ is a maximally consistent set.
 
   Problem 1.5.6 shows that $\textrm{Cons}(\Gamma) = \{ \sigma | \Gamma \vdash \sigma \}$ is maximally
   consistent if $\Gamma$ is a complete set.
-  
-  Now, let's show that $\Gamma$ is a complete set if $\textrm{Cons}(\Gamma) = \{ \sigma | \Gamma 
-  \vdash \sigma \}$ is maximally consistent. Since $\textrm{Cons}(\Gamma)$ is maximally consistent, 
+
+  Now, let's show that $\Gamma$ is a complete set if $\textrm{Cons}(\Gamma) = \{ \sigma | \Gamma
+  \vdash \sigma \}$ is maximally consistent. Since $\textrm{Cons}(\Gamma)$ is maximally consistent,
   by Lemma 1.5.8., $\textrm{Cons}(\Gamma)$ is closed under derivability, so $Cons(\Gamma) \vdash \phi \Rightarrow $
   $\phi \in Cons(\Gamma)$. Since this set is consistent, there does not exist a $\phi$ such that
   $\Gamma \vdash \phi \land \Gamma \vdash \neg \phi$. Thus, forall $\phi$, either $\phi \in \Gamma$
