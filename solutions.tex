@@ -973,6 +973,7 @@ consistent. This shows that $\Gamma$ is a maximally consistent set.
     Show $\models \forall x(\phi \to \psi) \to (\forall x \phi \to \forall x \psi)$
 \end{problem}
 \begin{solution}
+    Suppose $\forall x(\phi \to \psi)$ is true in some model, and the same for $\forall x \phi$. Let $x$ be arbitrary. We know that $(\phi(x) \to \psi(x))$, and furthermore we know $\phi(x)$. Accordingly $\psi(x)$. Since $x$ is arbitrary, we find $\forall x, \psi(x)$.
 \end{solution}
 
 \begin{problem}[2.5.9(ii)]
@@ -1191,6 +1192,49 @@ Then
     $\vdash \exists x (\phi(x) \to \psi) \leftrightarrow (\forall x \phi(x) \to \psi)$ if $x \notin \textrm{FV}(\psi)$
 \end{problem}
 \begin{solution}
+    First we show $\vdash \exists x (\phi(x) \to \psi) \to (\forall x \phi(x) \to \psi)$ if $x \notin \textrm{FV}(\psi)$.
+
+    Here we use ``a" as the parameter (i.e. free variable) from elimination of the existential. This elimination is where we require the condition on $\psi$, since if $x \in \textrm{FV}(\psi)$ then $a$ would appear in $\psi$, which violates a side condition of this inference.
+
+    \begin{prooftree}
+        \AxiomC{}
+        \RightLabel{{\color{red}1}}
+        \UnaryInfC{$\exists x (\phi(x) \to \psi)$}
+        \AxiomC{}
+        \RightLabel{{\color{green}3}}
+        \UnaryInfC{$\forall x \phi(x)$}
+        \RightLabel{$\forall$ elim}
+        \UnaryInfC{$\phi(a)$}
+        \AxiomC{}
+        \RightLabel{{\color{blue}2}}
+        \UnaryInfC{$\phi(a) \to \psi$}
+        \RightLabel{$\to$ elim}
+        \BinaryInfC{$\psi$}
+        \RightLabel{$\to$ intro {\color{green}3}}
+        \UnaryInfC{$(\forall x \phi (x)) \to \psi$}
+        \RightLabel{$\exists$ elim {\color{blue}2} ($x \notin \textrm{FV}(\psi)$)}
+        \BinaryInfC{$(\forall x \phi (x)) \to \psi)$}
+        \RightLabel{$\to$ intro \, {\color{red}1}}
+        \UnaryInfC{$\exists x (\phi(x) \to \psi) \to (\forall x \phi (x) \to \psi)$}
+    \end{prooftree}
+
+    Next we show $\vdash (\forall x \phi(x) \to \psi) \to \exists x (\phi(x) \to \psi)$ if $x \notin \textrm{FV}(\psi)$.
+
+
+    \begin{prooftree}
+        \AxiomC{}
+        \RightLabel{}
+        \UnaryInfC{$\phi(x)$}
+        \AxiomC{}
+        \UnaryInfC{}
+        \BinaryInfC{$\psi$}
+        \UnaryInfC{$\phi(x) \to \psi$}
+        \RightLabel{$\exists$ intro}
+        \UnaryInfC{$\exists x (\phi(x) \to \psi)$}
+        \RightLabel{$\to$ intro \, {\color{red}1}}
+        \UnaryInfC{$(\forall x \phi (x) \to \psi) \to \exists x (\phi(x) \to \psi)$}
+    \end{prooftree}
+
 \end{solution}
 
 \begin{problem}[2.9.7]
