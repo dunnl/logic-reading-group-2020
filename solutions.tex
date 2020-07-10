@@ -1001,7 +1001,9 @@ By definition 2.2.4 (ii), it suffices to show that
 for any structure $\mathfrak A$ of the appropriate type,
 \[\mathfrak A \models (\exists x \phi \to \forall x \psi) \to \forall x (\phi \to \psi).\]
 Let $\mathfrak A$ be a structure of the appropriate type.
-Let $\braces{y_1, \ldots, y_n} = FV(\phi) \cup FV(\psi)$.
+Let \[\braces{y_1, \ldots, y_n} =
+  FV\parens{\parens{\exists x \phi \to \forall x \psi}
+  \to \forall x \parens{\phi \to \psi}}.\]
 By definition 2.2.4 (i), it suffices to show that
 \[\mathfrak A \models \forall y_1 \cdots \forall y_n
   \parens{(\exists x \phi \to \forall x \psi) \to \forall x (\phi \to \psi)}.\]
