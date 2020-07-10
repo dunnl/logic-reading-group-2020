@@ -2,7 +2,7 @@ TEXFILES = solutions.tex
 
 all: solutions.pdf
 
-solutions.pdf: solutions.tex
+solutions.pdf: $(TEXFILES)
 	pdflatex $(TEXFILES)
 
 clean:
