@@ -997,6 +997,54 @@ consistent. This shows that $\Gamma$ is a maximally consistent set.
     Show $\models (\exists x \phi \to \forall x \psi) \to \forall x (\phi \to \psi)$
 \end{problem}
 \begin{solution}
+By definition 2.2.4 (ii), it suffices to show that
+for any structure $\mathfrak A$ of the appropriate type,
+\[\mathfrak A \models (\exists x \phi \to \forall x \psi) \to \forall x (\phi \to \psi).\]
+Let $\mathfrak A$ be a structure of the appropriate type.
+Let $\braces{y_1, \ldots, y_n} = FV(\phi) \cup FV(\psi)$.
+By definition 2.2.4 (i), it suffices to show that
+\[\mathfrak A \models \forall y_1 \cdots \forall y_n
+  \parens{(\exists x \phi \to \forall x \psi) \to \forall x (\phi \to \psi)}.\]
+By lemma 2.4.5 (vi), it suffices to show that
+\[\mathfrak A \models \parens{(\exists x \phi \to \forall x \psi) \to \forall x (\phi \to \psi)}
+  \bracks{\overline b_1 \ y_1} \cdots \bracks{\overline b_n / y_n}.\]
+for all $b_1, \ldots, b_n \in \abs{\mathfrak A}$.
+Suppose $b_1, \ldots, b_n \in \abs{\mathfrak A}$.
+Letting
+\begin{align*}
+\phi' &= \phi \bracks{\overline b_1 \ y_1} \cdots \bracks{\overline b_n / y_n} \\
+\psi' &= \psi \bracks{\overline b_1 \ y_1} \cdots \bracks{\overline b_n / y_n}
+\end{align*}
+and simplifying (based on definition 2.3.10), we need to show
+\[\mathfrak A \models (\exists x \phi' \to \forall x \psi') \to \forall x (\phi' \to \psi').\]
+By lemma 2.4.5 (iv), it suffices to show that if
+\[\mathfrak A \models (\exists x \phi' \to \forall x \psi'),\]
+then
+\[\mathfrak A \models \forall x (\phi' \to \psi').\]
+Assume that
+\[\mathfrak A \models (\exists x \phi' \to \forall x \psi'),\]
+which by lemma 2.4.5 (iv) is equivalent to
+\[\mathfrak A \models \exists x \phi' \implies \mathfrak A \models \forall x \psi'.\]
+We need to prove that
+\[\mathfrak A \models \forall x (\phi' \to \psi'),\]
+which by lemma 2.4.5 (vi) we can show by proving that
+\[\mathfrak A \models (\phi' \to \psi') \bracks{\overline a / x}\]
+for all $a \in \abs{\mathfrak A}$.
+Suppose $a \in \abs{\mathfrak A}$.
+Our obligation above simplifies to
+\[\mathfrak A \models (\phi' \bracks{\overline a / x} \to \psi' \bracks{\overline a / x}),\]
+which by lemma 2.4.5 (iv) we can show by proving that
+\[\mathfrak A \models \phi' \bracks{\overline a / x} \implies
+  \mathfrak A \models \psi' \bracks{\overline a / x}.\]
+Assume that
+\[\mathfrak A \models \phi' \bracks{\overline a / x}.\]
+It follows by lemma 2.4.5 (vii) that
+\[\mathfrak A \models \exists x \phi'.\]
+By an assumption above, we have that
+\[\mathfrak A \models \forall x \psi'.\]
+Lemma 2.4.6 (vi) tells us
+\[\mathfrak A \models \psi' \bracks{\overline a / x},\]
+as desired.
 \end{solution}
 
 \begin{problem}[2.5.15]
