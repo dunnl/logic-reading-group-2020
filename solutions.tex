@@ -1063,6 +1063,108 @@ as desired.
     $\vdash \forall x (\phi(x) \lor \psi) \leftrightarrow \forall x \phi(x) \lor \psi$ if $x \notin \textrm{FV}(\psi)$.
 \end{problem}
 \begin{solution}
+Let {\AxiomC{$\mathcal D_1$} \noLine \UnaryInfC{$\lnot \psi \lor \psi$} \DisplayProof} $=$
+\begin{prooftree}
+\AxiomC{$\bracks{\lnot \lnot \psi \land \lnot \psi}^1$}
+\RightLabel{$\land E (r)$}
+\UnaryInfC{$\lnot \psi$}
+\AxiomC{$\bracks{\lnot \lnot \psi \land \lnot \psi}^1$}
+\RightLabel{$\land E (l)$}
+\UnaryInfC{$\lnot \lnot \psi$}
+\RightLabel{$\lnot E$}
+\BinaryInfC{$\bot$}
+\RightLabel{$\to I_1$}
+\UnaryInfC{$\lnot \psi \lor \psi$}
+\end{prooftree}
+let {
+  \AxiomC{$\forall x \parens{\phi(x) \lor \psi}$}
+  \AxiomC{$\lnot \psi$}
+  \noLine
+  \BinaryInfC{$\mathcal D_2$}
+  \noLine
+  \UnaryInfC{$\forall x \phi(x) \lor \psi$}
+  \DisplayProof
+} $=$
+\begin{prooftree}
+\AxiomC{$\forall x \parens{\phi(x) \lor \psi}$}
+\RightLabel{$\forall E$}
+\UnaryInfC{$\phi(t) \lor \psi$}
+\AxiomC{$\bracks{\phi(t)}^2$}
+\AxiomC{$\bracks{\psi}^2$}
+\AxiomC{$\lnot \psi$}
+\RightLabel{$\lnot E$}
+\BinaryInfC{$\bot$}
+\RightLabel{$\bot$}
+\UnaryInfC{$\phi(t)$}
+\RightLabel{$\lor E_2$}
+\TrinaryInfC{$\phi(t)$}
+\RightLabel{$\forall I$}
+\UnaryInfC{$\forall x \phi(x)$}
+\RightLabel{$\lor I (l)$}
+\UnaryInfC{$\forall x \phi(x) \lor \psi$}
+\end{prooftree}
+let {
+  \AxiomC{$\forall x \parens{\phi(x) \lor \psi}$}
+  \noLine
+  \UnaryInfC{$\mathcal D_3$}
+  \noLine
+  \UnaryInfC{$\forall x \phi(x) \lor \psi$}
+  \DisplayProof
+} $=$
+\begin{prooftree}
+\AxiomC{$\mathcal D_1$}
+\noLine
+\UnaryInfC{$\lnot \psi \lor \psi$}
+\AxiomC{$\forall x \parens{\phi(x) \lor \psi}$}
+\AxiomC{$\bracks{\lnot \psi}^3$}
+\noLine
+\BinaryInfC{$\mathcal D_2$}
+\noLine
+\UnaryInfC{$\forall x \phi(x) \lor \psi$}
+\AxiomC{$\bracks{\psi}^3$}
+\RightLabel{$\lor I (r)$}
+\UnaryInfC{$\forall x \phi(x) \lor \psi$}
+\RightLabel{$\lor E_3$}
+\TrinaryInfC{$\forall x \phi(x) \lor \psi$}
+\end{prooftree}
+and let {
+  \AxiomC{$\forall x \phi(x) \lor \psi$}
+  \noLine
+  \UnaryInfC{$\mathcal D_4$}
+  \noLine
+  \UnaryInfC{$\forall x \parens{\phi(x) \lor \psi}$}
+  \DisplayProof
+} $=$
+\begin{prooftree}
+\AxiomC{$\forall x \phi(x) \lor \psi$}
+\AxiomC{$\bracks{\forall x \phi(x)}^4$}
+\RightLabel{$\forall E$}
+\UnaryInfC{$\phi(t)$}
+\RightLabel{$\lor I (l)$}
+\UnaryInfC{$\phi(t) \lor \psi$}
+\AxiomC{$\bracks{\psi}^4$}
+\RightLabel{$\lor I (r)$}
+\UnaryInfC{$\phi(t) \lor \psi$}
+\RightLabel{$\lor E_4$}
+\TrinaryInfC{$\phi(t) \lor \psi$}
+\RightLabel{$\forall I$}
+\UnaryInfC{$\forall x \parens{\phi(x) \lor \psi}$}
+\end{prooftree}
+Then
+\begin{prooftree}
+\AxiomC{$\bracks{\forall x \parens{\phi(x) \lor \psi}}^5$}
+\noLine
+\UnaryInfC{$\mathcal D_3$}
+\noLine
+\UnaryInfC{$\forall x \phi(x) \lor \psi$}
+\AxiomC{$\bracks{\forall x \phi(x) \lor \psi}^5$}
+\noLine
+\UnaryInfC{$\mathcal D_4$}
+\noLine
+\UnaryInfC{$\forall x \parens{\phi(x) \lor \psi}$}
+\RightLabel{$\leftrightarrow I_5$}
+\BinaryInfC{$\forall x \parens{\phi(x) \lor \psi} \leftrightarrow \forall x \phi(x) \lor \psi$}
+\end{prooftree}
 \end{solution}
 
 \begin{problem}[2.9.3]
