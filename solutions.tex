@@ -466,12 +466,12 @@ This formula is equivalent to $\phi \lor \lnot \psi$. This expression is in both
 
 \begin{problem}[1.4.1] Show that the following propositions are derivable (note: see at the bottom for guidance on formatting proof trees)
 \begin{enumerate}[(a)]
-    \item $\varphi \to \varphi$
-    \item $\bot \to \varphi$
-    \item $\neg (\varphi \land \neg \varphi)$
-    \item $(\varphi \to \psi) \leftrightarrow \neg (\varphi \land \neg \psi)$
-    \item $(\varphi \land \psi) \leftrightarrow \neg (\varphi \to \neg \psi)$
-    \item $\varphi \to (\psi \to (\varphi \land \psi))$
+    \item $\phi \to \phi$
+    \item $\bot \to \phi$
+    \item $\neg (\phi \land \neg \phi)$
+    \item $(\phi \to \psi) \leftrightarrow \neg (\phi \land \neg \psi)$
+    \item $(\phi \land \psi) \leftrightarrow \neg (\phi \to \neg \psi)$
+    \item $\phi \to (\psi \to (\phi \land \psi))$
 \end{enumerate}
 \end{problem}
 \begin{solution}\strut
@@ -479,10 +479,10 @@ This formula is equivalent to $\phi \lor \lnot \psi$. This expression is in both
 
     \item\strut
     \begin{prooftree}
-        \AxiomC{$\bracks{\varphi}^1$}
+        \AxiomC{$\bracks{\phi}^1$}
 
         \RightLabel{$\to I_1$}
-        \UnaryInfC{$\varphi \to \varphi$}
+        \UnaryInfC{$\phi \to \phi$}
     \end{prooftree}
 
     \item\strut
@@ -490,45 +490,45 @@ This formula is equivalent to $\phi \lor \lnot \psi$. This expression is in both
         \AxiomC{$\bracks{\bot}^1$}
 
         \RightLabel{$\bot$}
-        \UnaryInfC{$\varphi$}
+        \UnaryInfC{$\phi$}
 
         \RightLabel{$\to I_1$}
-        \UnaryInfC{$\bot \to \varphi$}
+        \UnaryInfC{$\bot \to \phi$}
     \end{prooftree}
 
     \item Here is (c) for notational reference:
     \begin{prooftree}
-        \AxiomC{$[ \varphi \land \neg \varphi]^1$}
+        \AxiomC{$[ \phi \land \neg \phi]^1$}
         \RightLabel{$\land E (l)$}
-        \UnaryInfC{$\varphi$}
-        \AxiomC{$[ \varphi \land \neg \varphi]^1$}
+        \UnaryInfC{$\phi$}
+        \AxiomC{$[ \phi \land \neg \phi]^1$}
         \RightLabel{$\land E (r)$}
-        \UnaryInfC{$\neg \varphi$}
+        \UnaryInfC{$\neg \phi$}
         \RightLabel{$\to E$}
         \BinaryInfC{$\bot$}
         \RightLabel{$\to I_1$}
-        \UnaryInfC{$\neg (\varphi \land \neg \varphi)$}
+        \UnaryInfC{$\neg (\phi \land \neg \phi)$}
     \end{prooftree}
 
     \item Let
     {
         \AxiomC{$\mathcal D_1$}
         \noLine
-        \UnaryInfC{$\parens{\varphi \to \psi} \to \lnot\parens{\varphi \land \lnot \psi}$}
+        \UnaryInfC{$\parens{\phi \to \psi} \to \lnot\parens{\phi \land \lnot \psi}$}
         \DisplayProof
     }
     $=$
     \begin{prooftree}
-                \AxiomC{$\bracks{\varphi \land \lnot \psi}^1$}
+                \AxiomC{$\bracks{\phi \land \lnot \psi}^1$}
                 \RightLabel{$\land E (l)$}
-                \UnaryInfC{$\varphi$}
+                \UnaryInfC{$\phi$}
 
-                \AxiomC{$\bracks{\varphi \to \psi}^2$}
+                \AxiomC{$\bracks{\phi \to \psi}^2$}
 
             \RightLabel{$\to E$}
             \BinaryInfC{$\psi$}
 
-            \AxiomC{$\bracks{\varphi \land \lnot \psi}^1$}
+            \AxiomC{$\bracks{\phi \land \lnot \psi}^1$}
             \RightLabel{$\land E (r)$}
             \UnaryInfC{$\lnot \psi$}
 
@@ -536,27 +536,27 @@ This formula is equivalent to $\phi \lor \lnot \psi$. This expression is in both
         \BinaryInfC{$\bot$}
 
         \RightLabel{$\to I_1$}
-        \UnaryInfC{$\lnot\parens{\varphi \land \lnot \psi}$}
+        \UnaryInfC{$\lnot\parens{\phi \land \lnot \psi}$}
 
         \RightLabel{$\to I_2$}
-        \UnaryInfC{$\parens{\varphi \to \psi} \to \lnot\parens{\varphi \land \lnot \psi}$}
+        \UnaryInfC{$\parens{\phi \to \psi} \to \lnot\parens{\phi \land \lnot \psi}$}
     \end{prooftree}
     and let
     {
         \AxiomC{$\mathcal D_2$}
         \noLine
-        \UnaryInfC{$\lnot \parens{\varphi \land \lnot \psi} \to \parens{\varphi \to \psi}$}
+        \UnaryInfC{$\lnot \parens{\phi \land \lnot \psi} \to \parens{\phi \to \psi}$}
         \DisplayProof
     }
     $=$
     \begin{prooftree}
-                \AxiomC{$\bracks{\varphi}^4$}
+                \AxiomC{$\bracks{\phi}^4$}
                 \AxiomC{$\bracks{\lnot \psi}^3$}
 
             \RightLabel{$\land I$}
             \BinaryInfC{$\phi \land \lnot \psi$}
 
-            \AxiomC{$\bracks{\lnot\parens{\varphi \land \lnot \psi}}^5$}
+            \AxiomC{$\bracks{\lnot\parens{\phi \land \lnot \psi}}^5$}
 
         \RightLabel{$\to E$}
         \BinaryInfC{$\bot$}
@@ -565,43 +565,43 @@ This formula is equivalent to $\phi \lor \lnot \psi$. This expression is in both
         \UnaryInfC{$\psi$}
 
         \RightLabel{$\to I_4$}
-        \UnaryInfC{$\varphi \to \psi$}
+        \UnaryInfC{$\phi \to \psi$}
 
         \RightLabel{$\to I_5$}
-        \UnaryInfC{$\lnot \parens{\varphi \land \lnot \psi} \to \parens{\varphi \to \psi}$}
+        \UnaryInfC{$\lnot \parens{\phi \land \lnot \psi} \to \parens{\phi \to \psi}$}
     \end{prooftree}
     Then
     \begin{prooftree}
             \AxiomC{$\mathcal D_1$}
             \noLine
-            \UnaryInfC{$\parens{\varphi \to \psi} \to \lnot\parens{\varphi \land \lnot \psi}$}
+            \UnaryInfC{$\parens{\phi \to \psi} \to \lnot\parens{\phi \land \lnot \psi}$}
 
             \AxiomC{$\mathcal D_2$}
             \noLine
-            \UnaryInfC{$\lnot \parens{\varphi \land \lnot \psi} \to \parens{\varphi \to \psi}$}
+            \UnaryInfC{$\lnot \parens{\phi \land \lnot \psi} \to \parens{\phi \to \psi}$}
 
         \RightLabel{$\land I$}
-        \BinaryInfC{$\parens{\varphi \to \psi} \leftrightarrow \lnot\parens{\varphi \land \lnot \psi}$}
+        \BinaryInfC{$\parens{\phi \to \psi} \leftrightarrow \lnot\parens{\phi \land \lnot \psi}$}
     \end{prooftree}
 
     \item Let
     {
         \AxiomC{$\mathcal D_1$}
         \noLine
-        \UnaryInfC{$\parens{\varphi \land \psi} \to \lnot\parens{\varphi \to \lnot \psi}$}
+        \UnaryInfC{$\parens{\phi \land \psi} \to \lnot\parens{\phi \to \lnot \psi}$}
         \DisplayProof
     }
     $=$
     \begin{prooftree}
-            \AxiomC{$\bracks{\varphi \land \psi}^2$}
+            \AxiomC{$\bracks{\phi \land \psi}^2$}
             \RightLabel{$\land E (r)$}
             \UnaryInfC{$\psi$}
 
-                \AxiomC{$\bracks{\varphi \land \psi}^2$}
+                \AxiomC{$\bracks{\phi \land \psi}^2$}
                 \RightLabel{$\land E (l)$}
-                \UnaryInfC{$\varphi$}
+                \UnaryInfC{$\phi$}
 
-                \AxiomC{$\bracks{\varphi \to \lnot \psi}^1$}
+                \AxiomC{$\bracks{\phi \to \lnot \psi}^1$}
 
             \RightLabel{$\to E$}
             \BinaryInfC{$\lnot \psi$}
@@ -610,43 +610,43 @@ This formula is equivalent to $\phi \lor \lnot \psi$. This expression is in both
         \BinaryInfC{$\bot$}
 
         \RightLabel{$\to I_1$}
-        \UnaryInfC{$\lnot\parens{\varphi \to \lnot \psi}$}
+        \UnaryInfC{$\lnot\parens{\phi \to \lnot \psi}$}
 
         \RightLabel{$\to I_2$}
-        \UnaryInfC{$\parens{\varphi \land \psi} \to \lnot\parens{\varphi \to \lnot \psi}$}
+        \UnaryInfC{$\parens{\phi \land \psi} \to \lnot\parens{\phi \to \lnot \psi}$}
     \end{prooftree}
     let
     {
-        \AxiomC{$\lnot\parens{\varphi \to \lnot \psi}$}
+        \AxiomC{$\lnot\parens{\phi \to \lnot \psi}$}
         \noLine
         \UnaryInfC{$\mathcal D_2$}
         \noLine
-        \UnaryInfC{$\varphi$}
+        \UnaryInfC{$\phi$}
         \DisplayProof
     }
     $=$
     \begin{prooftree}
-                \AxiomC{$\bracks{\varphi}^3$}
-                \AxiomC{$\bracks{\lnot \varphi}^4$}
+                \AxiomC{$\bracks{\phi}^3$}
+                \AxiomC{$\bracks{\lnot \phi}^4$}
 
             \RightLabel{$\to E$}
             \BinaryInfC{$\bot$}
             \RightLabel{$\bot$}
             \UnaryInfC{$\lnot \psi$}
             \RightLabel{$\to I_3$}
-            \UnaryInfC{$\varphi \to \lnot \psi$}
+            \UnaryInfC{$\phi \to \lnot \psi$}
 
-            \AxiomC{$\lnot\parens{\varphi \to \lnot \psi}$}
+            \AxiomC{$\lnot\parens{\phi \to \lnot \psi}$}
 
         \RightLabel{$\to E$}
         \BinaryInfC{$\bot$}
 
         \RightLabel{RAA${}_4$}
-        \UnaryInfC{$\varphi$}
+        \UnaryInfC{$\phi$}
     \end{prooftree}
     and let
     {
-        \AxiomC{$\lnot\parens{\varphi \to \lnot \psi}$}
+        \AxiomC{$\lnot\parens{\phi \to \lnot \psi}$}
         \noLine
         \UnaryInfC{$\mathcal D_3$}
         \noLine
@@ -657,9 +657,9 @@ This formula is equivalent to $\phi \lor \lnot \psi$. This expression is in both
     \begin{prooftree}
             \AxiomC{$\bracks{\lnot \psi}^5$}
             \RightLabel{$\to I$}
-            \UnaryInfC{$\varphi \to \lnot \psi$}
+            \UnaryInfC{$\phi \to \lnot \psi$}
 
-            \AxiomC{$\lnot\parens{\varphi \to \lnot \psi}$}
+            \AxiomC{$\lnot\parens{\phi \to \lnot \psi}$}
 
         \RightLabel{$\to E$}
         \BinaryInfC{$\bot$}
@@ -671,83 +671,83 @@ This formula is equivalent to $\phi \lor \lnot \psi$. This expression is in both
     \begin{prooftree}
             \AxiomC{$\mathcal D_1$}
             \noLine
-            \UnaryInfC{$\parens{\varphi \land \psi} \to \lnot\parens{\varphi \to \lnot \psi}$}
+            \UnaryInfC{$\parens{\phi \land \psi} \to \lnot\parens{\phi \to \lnot \psi}$}
 
-                \AxiomC{$\bracks{\lnot\parens{\varphi \to \lnot \psi}}^6$}
+                \AxiomC{$\bracks{\lnot\parens{\phi \to \lnot \psi}}^6$}
                 \noLine
                 \UnaryInfC{$\mathcal D_2$}
                 \noLine
-                \UnaryInfC{$\varphi$}
+                \UnaryInfC{$\phi$}
 
-                \AxiomC{$\bracks{\lnot\parens{\varphi \to \lnot \psi}}^6$}
+                \AxiomC{$\bracks{\lnot\parens{\phi \to \lnot \psi}}^6$}
                 \noLine
                 \UnaryInfC{$\mathcal D_3$}
                 \noLine
                 \UnaryInfC{$\psi$}
 
             \RightLabel{$\land I$}
-            \BinaryInfC{$\varphi \land \psi$}
+            \BinaryInfC{$\phi \land \psi$}
             \RightLabel{$\to I_6$}
-            \UnaryInfC{$\lnot \parens{\varphi \to \lnot \psi} \to \parens{\varphi \land \psi}$}
+            \UnaryInfC{$\lnot \parens{\phi \to \lnot \psi} \to \parens{\phi \land \psi}$}
 
         \RightLabel{$\land I$}
-        \BinaryInfC{$\parens{\varphi \land \psi} \leftrightarrow \lnot\parens{\varphi \to \lnot \psi}$}
+        \BinaryInfC{$\parens{\phi \land \psi} \leftrightarrow \lnot\parens{\phi \to \lnot \psi}$}
     \end{prooftree}
 
     \item\strut
     \begin{prooftree}
-            \AxiomC{$\bracks{\varphi}^2$}
+            \AxiomC{$\bracks{\phi}^2$}
 
             \AxiomC{$\bracks{\psi}^1$}
 
         \RightLabel{$\land I$}
-        \BinaryInfC{$\varphi \land \psi$}
+        \BinaryInfC{$\phi \land \psi$}
 
         \RightLabel{$\to I_1$}
-        \UnaryInfC{$\psi \to \parens{\varphi \land \psi}$}
+        \UnaryInfC{$\psi \to \parens{\phi \land \psi}$}
 
         \RightLabel{$\to I_2$}
-        \UnaryInfC{$\varphi \to \parens{\psi \to \parens{\varphi \land \psi}}$}
+        \UnaryInfC{$\phi \to \parens{\psi \to \parens{\phi \land \psi}}$}
     \end{prooftree}
 \end{enumerate}
 \end{solution}
 
 \begin{problem}[1.4.3] Show
     \begin{enumerate}[(a)]
-        \item $\varphi \vdash \neg (\neg \varphi \land \psi)$
-        \item $\neg (\varphi \land \neg \psi), \varphi \vdash \psi$
-        \item $\neg \varphi \vdash (\varphi \to \psi) \leftrightarrow \neg \varphi$
-        \item $\vdash \varphi \implies \vdash \psi \to \varphi$
-        \item $\neg \varphi \vdash \varphi \to \psi$
+        \item $\phi \vdash \neg (\neg \phi \land \psi)$
+        \item $\neg (\phi \land \neg \psi), \phi \vdash \psi$
+        \item $\neg \phi \vdash (\phi \to \psi) \leftrightarrow \neg \phi$
+        \item $\vdash \phi \implies \vdash \psi \to \phi$
+        \item $\neg \phi \vdash \phi \to \psi$
     \end{enumerate}
 \end{problem}
 \begin{solution}\strut
 \begin{enumerate}[(a)]
     \item\strut
     \begin{prooftree}
-            \AxiomC{$\varphi$}
+            \AxiomC{$\phi$}
 
-                \AxiomC{$\bracks{\lnot \varphi \land \psi}^1$}
+                \AxiomC{$\bracks{\lnot \phi \land \psi}^1$}
                 \RightLabel{$\land E (l)$}
 
-            \UnaryInfC{$\lnot \varphi$}
+            \UnaryInfC{$\lnot \phi$}
 
         \RightLabel{$\to E$}
         \BinaryInfC{$\bot$}
 
         \RightLabel{$\to I_1$}
-        \UnaryInfC{$\lnot \parens{\lnot \varphi \land \psi}$}
+        \UnaryInfC{$\lnot \parens{\lnot \phi \land \psi}$}
     \end{prooftree}
 
     \item\strut
     \begin{prooftree}
-                \AxiomC{$\varphi$}
+                \AxiomC{$\phi$}
                 \AxiomC{$\bracks{\lnot \psi}^1$}
 
             \RightLabel{$\land I$}
-            \BinaryInfC{$\varphi \land \lnot \psi$}
+            \BinaryInfC{$\phi \land \lnot \psi$}
 
-            \AxiomC{$\lnot \parens{\varphi \land \lnot \psi}$}
+            \AxiomC{$\lnot \parens{\phi \land \lnot \psi}$}
 
         \RightLabel{$\to E$}
         \BinaryInfC{$\bot$}
@@ -758,43 +758,43 @@ This formula is equivalent to $\phi \lor \lnot \psi$. This expression is in both
 
     \item\strut
     \begin{prooftree}
-            \AxiomC{$\lnot \varphi$}
+            \AxiomC{$\lnot \phi$}
             \RightLabel{$\to I$}
-            \UnaryInfC{$\parens{\varphi \to \psi} \to \lnot \varphi$}
+            \UnaryInfC{$\parens{\phi \to \psi} \to \lnot \phi$}
 
-                \AxiomC{$\bracks{\varphi}^1$}
-                \AxiomC{$\bracks{\lnot \varphi}^2$}
+                \AxiomC{$\bracks{\phi}^1$}
+                \AxiomC{$\bracks{\lnot \phi}^2$}
 
             \RightLabel{$\to E$}
             \BinaryInfC{$\bot$}
             \RightLabel{$\bot$}
             \UnaryInfC{$\psi$}
             \RightLabel{$\to I_1$}
-            \UnaryInfC{$\varphi \to \psi$}
+            \UnaryInfC{$\phi \to \psi$}
             \RightLabel{$\to I_2$}
-            \UnaryInfC{$\lnot\varphi \to \parens{\varphi \to \psi}$}
+            \UnaryInfC{$\lnot\phi \to \parens{\phi \to \psi}$}
 
         \RightLabel{$\land I$}
-        \BinaryInfC{$\parens{\varphi \to \psi} \leftrightarrow \lnot \varphi$}
+        \BinaryInfC{$\parens{\phi \to \psi} \leftrightarrow \lnot \phi$}
     \end{prooftree}
 
     \item
     Assume there is a derivation
-    {\AxiomC{$\mathcal D$} \noLine \UnaryInfC{$\varphi$} \DisplayProof}.
+    {\AxiomC{$\mathcal D$} \noLine \UnaryInfC{$\phi$} \DisplayProof}.
     \begin{prooftree}
         \AxiomC{$\mathcal D$}
 
         \noLine
-        \UnaryInfC{$\varphi$}
+        \UnaryInfC{$\phi$}
 
         \RightLabel{$\to I$}
-        \UnaryInfC{$\psi \to \varphi$}
+        \UnaryInfC{$\psi \to \phi$}
     \end{prooftree}
 
     \item\strut
     \begin{prooftree}
-        \AxiomC{$\bracks{\varphi}^1$}
-        \AxiomC{$\lnot \varphi$}
+        \AxiomC{$\bracks{\phi}^1$}
+        \AxiomC{$\lnot \phi$}
 
         \RightLabel{$\to E$}
         \BinaryInfC{$\bot$}
@@ -803,7 +803,7 @@ This formula is equivalent to $\phi \lor \lnot \psi$. This expression is in both
         \UnaryInfC{$\psi$}
 
         \RightLabel{$\to I_1$}
-        \UnaryInfC{$\varphi \to \psi$}
+        \UnaryInfC{$\phi \to \psi$}
     \end{prooftree}
 \end{enumerate}
 \end{solution}
